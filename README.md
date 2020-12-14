@@ -9,6 +9,7 @@ In contrast to other game libraries in Java this does not use OpenGL and instead
 - [ ] Allow debug details to be shown when enabled (FPS, objects rendered)
 - [ ] ImageScaler to be built into Scene.java (so no point calcs are needed from a user perspective)
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
+- [ ] Document classes and methods
 - [ ] Add spritesheet/plist support for `SpriteFrameCache`
 
 
