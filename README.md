@@ -1,6 +1,7 @@
 # SwingGameLibrary
 A simple 2D game library made using Java Swing for Java Swing.
 In contrast to other 2D game libraries in Java this does not use OpenGL and instead uses Swing components/methodologies only.
+
 The projects nomenclature might seem familiar if you have ever used [cocos2dx](https://github.com/cocos2d/cocos2d-x) and thats because it is what inspired me to write this.
 
 **TODO** (before alpha release):
