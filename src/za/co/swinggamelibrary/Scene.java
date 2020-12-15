@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -53,11 +54,16 @@ public class Scene extends JPanel {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        // draw all Sprites to the screen
-        ArrayList<Sprite> spritess = new ArrayList<>(sprites); // TODO stop concurrent modification
-        for (Sprite sprite : spritess) {
+        // draw all Sprites to the screen which are visible and or havent been removed from the scene
+        Iterator<Sprite> spriteIterator = sprites.iterator();
+        while (spriteIterator.hasNext()) {
+            Sprite sprite = (Sprite) spriteIterator.next();
             // draw the object to JPanel
-            g2d.drawImage(sprite.getCurrentImage(), (int) sprite.getX(), (int) sprite.getY(), null);
+            if (sprite.isRemovedFromParent()) {
+                spriteIterator.remove();
+            } else {
+                g2d.drawImage(sprite.getCurrentImage(), (int) sprite.getX(), (int) sprite.getY(), null);
+            }
         }
     }
 
@@ -67,29 +73,30 @@ public class Scene extends JPanel {
     }
 
     public void update(long elapsedTime) {
-        ArrayList<Sprite> spritess = new ArrayList<>(sprites); // stop concurrent modification exception
-        for (Sprite sprite : spritess) {
-            if (sprite.isVisible()) {
-                // update the movement and image of the gameobject
-                sprite.update(elapsedTime);//updates the images i.e if its more than a single image it will check to see if enough time has passed to make a change
-            }
+        synchronized (sprites) {
+            sprites.stream().filter((sprite) -> (sprite.isVisible())).forEachOrdered((sprite) -> {
+                // update the movement and image of the sprite
+                sprite.update(elapsedTime);
+            });
         }
     }
 
     public void addSprite(Sprite sprite) {
-        sprites.add(sprite);
-    }
-
-    public void removeSprite(Sprite sprite) {
-        sprites.remove(sprite);
+        synchronized (sprites) {
+            sprites.add(sprite);
+        }
     }
 
     public void clearSprites() {
-        sprites.clear();
+        synchronized (sprites) {
+            sprites.clear();
+        }
     }
 
     public List<Sprite> getSprites() {
-        return sprites;
+        synchronized (sprites) {
+            return sprites;
+        }
     }
 
     public void start() {

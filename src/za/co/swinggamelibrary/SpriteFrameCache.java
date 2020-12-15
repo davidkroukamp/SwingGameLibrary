@@ -41,11 +41,11 @@ public class SpriteFrameCache {
     }
 
     public void removeSpriteFrameByName(String name) {
-        Iterator it = sprites.entries().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
+        Iterator spriteIterator = sprites.entries().iterator();
+        while (spriteIterator.hasNext()) {
+            Map.Entry pair = (Map.Entry) spriteIterator.next();
             if (((SpriteFrame) pair.getValue()).getName().equals(name)) {
-                it.remove();
+                spriteIterator.remove();
             }
         }
     }

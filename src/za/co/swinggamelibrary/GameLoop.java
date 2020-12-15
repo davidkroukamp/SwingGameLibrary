@@ -24,7 +24,6 @@ public abstract class GameLoop {
     //If you're worried about visual hitches more than perfect timing, set this to 1. else 5 should be okay
     private final int MAX_UPDATES_BETWEEN_RENDER = 1;
     private final int maxUpdatesBetweenRender;
-    private Scene scene;
 
     public GameLoop(int fps, int maxUpdatesBetweenRender) {
         FRAMES_PER_SECOND = fps;
@@ -120,14 +119,6 @@ public abstract class GameLoop {
 
     public boolean isRunning() {
         return running.get();
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     // updtes position and animation of sprites

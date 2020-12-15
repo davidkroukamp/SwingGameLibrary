@@ -14,7 +14,8 @@ import java.awt.geom.Rectangle2D;
 public class Sprite extends Animator {
 
     protected Rectangle2D.Double rectangle;
-    private boolean visible;
+    protected boolean visible;
+    protected boolean removedFromParent;
 
     public Sprite(int x, int y, Animation animation) {
         super(animation);
@@ -79,6 +80,15 @@ public class Sprite extends Animator {
 
     public boolean intersects(Sprite sprite) {
         return rectangle.intersects(sprite.getBounds2D());
+    }
+
+    public void removeFromParent() {
+        removedFromParent = true;
+        visible = false;
+    }
+    
+    public boolean isRemovedFromParent() {
+        return removedFromParent;
     }
 
 }
