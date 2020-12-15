@@ -12,6 +12,7 @@ In contrast to other game libraries in Java this does not use OpenGL and instead
 - [ ] Document classes and methods
 - [ ] Add spritesheet/plist support for `SpriteFrameCache`
 
+**Examples:**
 
-For examples of using the library see [SwingGameLibrary-Samples
+See [SwingGameLibrary-Samples
 ](https://github.com/davidkroukamp/swinggamelibrary-samples)
