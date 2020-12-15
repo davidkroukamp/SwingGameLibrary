@@ -23,7 +23,7 @@ public class Scene extends JPanel {
 
     private final GameLoop gameLoop;
     private final int width, height;
-    protected final List<Sprite> sprites = Collections.synchronizedList(new ArrayList<>());
+    protected final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
 
     public Scene(int fps, int width, int height) {
         super(true);
@@ -34,6 +34,7 @@ public class Scene extends JPanel {
             @Override
             public void update(long elapsedTime) { //updates Sprite movement and Animation
                 Scene.this.update(elapsedTime);
+                Scene.this.checkForCollisions();
             }
 
             @Override
@@ -51,18 +52,18 @@ public class Scene extends JPanel {
 
         // TODO should be able to set background of scene
         // draw background
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         // draw all Sprites to the screen which are visible and or havent been removed from the scene
-        Iterator<Sprite> spriteIterator = sprites.iterator();
+        Iterator<INode> spriteIterator = nodes.iterator();
         while (spriteIterator.hasNext()) {
-            Sprite sprite = (Sprite) spriteIterator.next();
+            INode node = (INode) spriteIterator.next();
             // draw the object to JPanel
-            if (sprite.isRemovedFromParent()) {
+            if (node.isRemovedFromParent()) {
                 spriteIterator.remove();
             } else {
-                g2d.drawImage(sprite.getCurrentImage(), (int) sprite.getX(), (int) sprite.getY(), null);
+                node.render(g2d);
             }
         }
     }
@@ -73,29 +74,48 @@ public class Scene extends JPanel {
     }
 
     public void update(long elapsedTime) {
-        synchronized (sprites) {
-            sprites.stream().filter((sprite) -> (sprite.isVisible())).forEachOrdered((sprite) -> {
+        synchronized (nodes) {
+            nodes.stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
                 // update the movement and image of the sprite
-                sprite.update(elapsedTime);
+                node.update(elapsedTime);
             });
         }
     }
 
-    public void addSprite(Sprite sprite) {
-        synchronized (sprites) {
-            sprites.add(sprite);
+    private void checkForCollisions() {
+        synchronized (nodes) {
+            nodes.stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
+                nodes.stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
+                    ICollidable outerCollidable = (ICollidable) outerNode;
+                    ICollidable innerCollidable = (ICollidable) innerNode;
+
+                    // check if the 2 nodes are colliding/intersecting
+                    if (outerCollidable.intersects(innerCollidable)) {
+                        // check to ensure we are not checking ourselves
+                        if (!outerNode.equals(innerNode)) {
+                            outerCollidable.onCollision(innerNode);
+                        }
+                    }
+                });
+            });
         }
     }
 
-    public void clearSprites() {
-        synchronized (sprites) {
-            sprites.clear();
+    public void add(INode node) {
+        synchronized (nodes) {
+            nodes.add(node);
         }
     }
 
-    public List<Sprite> getSprites() {
-        synchronized (sprites) {
-            return sprites;
+    public void clearNodes() {
+        synchronized (nodes) {
+            nodes.clear();
+        }
+    }
+
+    public List<INode> getNodes() {
+        synchronized (nodes) {
+            return nodes;
         }
     }
 
