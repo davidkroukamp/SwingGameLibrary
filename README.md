@@ -5,10 +5,11 @@ In contrast to other game libraries in Java this does not use OpenGL and instead
 **TODO** (before alpha release):
 - [x] Remove `Scene` reference from `GameLoop`
 - [x] Iterate sprites using iterator or synchronized block in places that access sprite list
-- [ ] `Scene` to render black background and not white
-- [ ] Add an Audio Manager
-- [ ] Add a `Node` class which `Scene` will accept and `Sprite` will extend this and `Animator`
+- [x] `Scene` to render black background and not white
+- [x] Add a `INode` interface which `Scene` will accept and `Sprite` will implement
+- [x] Add a `ICollidable` interface which will allow automatic collision detections
 - [ ] Allow debug details to be shown when enabled (FPS, objects rendered)
+- [ ] Add an Audio Manager
 - [ ] ImageScaler to be built into Scene.java (so no point calcs are needed from a user perspective)
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
