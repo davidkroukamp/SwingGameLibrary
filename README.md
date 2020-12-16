@@ -1,6 +1,7 @@
 # SwingGameLibrary
 A simple 2D game library made using Java Swing for Java Swing.
 In contrast to other 2D game libraries in Java this does not use OpenGL and instead uses Swing components/methodologies only.
+The allows you to be able to leverage existing knowledge of Java Swing components, layouts, UIs and design patterns in order to create a functional 2D game.
 
 The projects nomenclature might seem familiar if you have ever used [cocos2dx](https://github.com/cocos2d/cocos2d-x) and thats because it is what inspired me to write this.
 
@@ -16,6 +17,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] `INode` should be able to be added to another `INode` and rendered
 - [ ] `Scene` should be nothing more then an `INode` with a `Director` which extends `JPanel` running the game loop and switching between `Scene`s
 - [ ] `ImageScaler` to be built into `Scene` (so no point calcs are needed from a user perspective)
+
 - [ ] Add Spritesheet/plist support for `SpriteFrameCache`
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
