@@ -59,8 +59,7 @@ public abstract class GameLoop {
         long lastUpdateTime = System.nanoTime();
         //store the time we started this will be used for updating map and charcter animations
         long currTime = System.currentTimeMillis();
-        fpsCounterStartTime = System.currentTimeMillis();
-        frameCount = 0;
+        resetFpsCounter();
 
         while (running.get()) {
             if (!paused.get()) {
@@ -113,8 +112,7 @@ public abstract class GameLoop {
     }
 
     public void resume() {
-        fpsCounterStartTime = System.currentTimeMillis();
-        frameCount = 0;
+        resetFpsCounter();
         paused.set(false);
     }
 
@@ -124,6 +122,11 @@ public abstract class GameLoop {
 
     public boolean isRunning() {
         return running.get();
+    }
+
+    private void resetFpsCounter() {
+        fpsCounterStartTime = System.currentTimeMillis();
+        frameCount = 0;
     }
 
     public double getAverageFps() {
