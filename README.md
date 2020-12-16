@@ -4,7 +4,7 @@ In contrast to other 2D game libraries in Java this does not use OpenGL and inst
 
 The projects nomenclature might seem familiar if you have ever used [cocos2dx](https://github.com/cocos2d/cocos2d-x) and thats because it is what inspired me to write this.
 
-**TODO** (before alpha release):
+**TODO** (before beta release):
 - [x] Remove `Scene` reference from `GameLoop`
 - [x] Iterate sprites using iterator or synchronized block in places that access sprite list
 - [x] `Scene` to render black background and not white
@@ -17,6 +17,11 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Add spritesheet/plist support for `SpriteFrameCache`
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
+
+**Requirements:**
+
+- [Java JDK 8](https://www.oracle.com/za/java/technologies/javase/javase-jdk8-downloads.html)
+- [NetBeans IDE 8.2+](https://netbeans.org/downloads/8.2/rc/)
 
 **Examples:**
 
