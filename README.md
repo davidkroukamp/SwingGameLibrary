@@ -14,7 +14,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Implement `AudioEngine`
 - [ ] Implement `Animation` loops 
 - [ ] `INode` should be able to be added to another `INode` and rendered
-- [ ] `Scene` should be nothing more then an `INode` with a `Director` which extends JPanel running the game loop and switching between `Scene`s
+- [ ] `Scene` should be nothing more then an `INode` with a `Director` which extends `JPanel` running the game loop and switching between `Scene`s
 - [ ] `ImageScaler` to be built into `Scene` (so no point calcs are needed from a user perspective)
 - [ ] Add Spritesheet/plist support for `SpriteFrameCache`
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
