@@ -12,9 +12,11 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Add a `ICollidable` interface which will allow automatic collision detections
 - [x] Allow debug details/masks to be shown/drawn i.e FPS, objects rendered and red rectangles around all nodes when enabled
 - [ ] Implement `AudioEngine`
-- [ ] Implement `Animator` loops 
-- [ ] `ImageScaler` to be built into Scene.java (so no point calcs are needed from a user perspective)
-- [ ] Add spritesheet/plist support for `SpriteFrameCache`
+- [ ] Implement `Animation` loops 
+- [ ] `INode` should be able to be added to another `INode` and rendered
+- [ ] `Scene` should be nothing more then an `INode` with a `Director` which extends JPanel running the game loop and switching between `Scene`s
+- [ ] `ImageScaler` to be built into `Scene` (so no point calcs are needed from a user perspective)
+- [ ] Add Spritesheet/plist support for `SpriteFrameCache`
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
