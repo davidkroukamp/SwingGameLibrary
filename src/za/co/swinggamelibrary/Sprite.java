@@ -5,7 +5,6 @@
  */
 package za.co.swinggamelibrary;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
@@ -13,13 +12,13 @@ import java.awt.geom.Rectangle2D;
  *
  * @author dkrou
  */
-public class Sprite extends Animator implements INode {
+public class Sprite extends Animation implements INode {
 
     protected Rectangle2D.Double rectangle;
     protected boolean visible;
     protected boolean removedFromParent;
 
-    public Sprite(int x, int y, Animation animation) {
+    public Sprite(int x, int y, AnimationFrame animation) {
         super(animation);
         rectangle = new Rectangle2D.Double(x, y, getCurrentImage().getWidth(), getCurrentImage().getHeight());
     }
@@ -27,6 +26,11 @@ public class Sprite extends Animator implements INode {
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
+    }
+
+    @Override
+    public void render(Graphics2D g2d) {
+        g2d.drawImage(getCurrentImage(), (int) getX(), (int) getY(), null);
     }
 
     @Override
@@ -96,11 +100,6 @@ public class Sprite extends Animator implements INode {
     @Override
     public boolean isRemovedFromParent() {
         return removedFromParent;
-    }
-
-    @Override
-    public void render(Graphics2D g2d) {
-        g2d.drawImage(getCurrentImage(), (int) getX(), (int) getY(), null);
     }
 
 }

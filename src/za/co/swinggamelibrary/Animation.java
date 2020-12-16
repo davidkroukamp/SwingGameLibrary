@@ -5,7 +5,8 @@
  */
 package za.co.swinggamelibrary;
 
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  *
@@ -13,27 +14,51 @@ import java.util.ArrayList;
  */
 public class Animation {
 
-    private final ArrayList<SpriteFrame> spriteFrames;
-    private final long delayPerFrame;
-    private final int loops;
+    private final AnimationFrame animation;
+    private int currIndex;
+    private long animationTime;
+    private final AtomicBoolean done;
 
-    public Animation(ArrayList<SpriteFrame> spriteFrames, long delayPerFrame, int loops) {
-        this.spriteFrames = spriteFrames;
-        this.delayPerFrame = delayPerFrame;
-        // TODO loops needs to be implemented in animator
-        this.loops = loops;
+    public Animation(AnimationFrame animation) {
+        currIndex = 0;
+        animationTime = 0;
+        done = new AtomicBoolean(false);
+        this.animation = animation;
     }
 
-    public long getDelayPerFrame() {
-        return delayPerFrame;
+    public boolean isDone() {
+        return done.get();
     }
 
-    public ArrayList<SpriteFrame> getSpriteFrames() {
-        return spriteFrames;
+    public void reset() {
+        animationTime = 0;
+        currIndex = 0;
+        done.getAndSet(false);
     }
 
-    public int getLoops() {
-        return loops;
+    public void update(long elapsedTime) {
+        if (this.animation.getSpriteFrames().size() > 1) {
+            animationTime += elapsedTime;
+            // TODO add loops check
+            if (animationTime >= this.animation.getDelayPerFrame()) { // animation time has elapsed and frame shoiuld be changed
+                if (currIndex + 1 >= this.animation.getSpriteFrames().size()) { // we reached the end of the animation
+                    animationTime = 0;
+                    currIndex = 0;
+                    done.getAndSet(true);
+                } else {
+                    animationTime = 0;
+                    currIndex++;
+                    done.getAndSet(true);
+                }
+            }
+        }
     }
 
+    public BufferedImage getCurrentImage() {
+        if (this.animation.getSpriteFrames().isEmpty()) {
+            return null;
+        } else {
+            return this.animation.getSpriteFrames().get(currIndex).getImage();
+        }
+    }
 }

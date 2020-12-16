@@ -19,7 +19,7 @@ public class Graphics2DHelper {
     private final static RenderingHints COLOR_RENDER_HINTS = new RenderingHints(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
     private final static RenderingHints INTERPOLATION_RENDER_HINTS = new RenderingHints(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
     private final static RenderingHints RENDER_HINTS = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-    private final static RenderingHints STROKE_HINTS = new RenderingHints(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+    private final static RenderingHints STROKE_HINTS = new RenderingHints(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
 
     public static void applyRenderHints(Graphics2D g2d) {
         g2d.setRenderingHints(TEXT_RENDER_HINT);

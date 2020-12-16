@@ -32,7 +32,7 @@ public interface INode {
     public boolean isVisible();
 
     public void setVisible(boolean visible);
-
+    
     public void removeFromParent();
 
     public boolean isRemovedFromParent();
