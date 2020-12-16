@@ -10,7 +10,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] `Scene` to render black background and not white
 - [x] Add a `INode` interface which `Scene` will accept and `Sprite` will implement
 - [x] Add a `ICollidable` interface which will allow automatic collision detections
-- [ ] Allow debug details/masks to be shown/drawn when enabled (FPS, objects rendered)
+- [x] Allow debug details/masks to be shown/drawn i.e FPS, objects rendered and red rectangles around all nodes when enabled
 - [ ] Implement `AudioEngine`
 - [ ] Implement `Animator` loops 
 - [ ] `ImageScaler` to be built into Scene.java (so no point calcs are needed from a user perspective)
