@@ -21,7 +21,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 **Requirements:**
 
 - [Java JDK 8](https://www.oracle.com/za/java/technologies/javase/javase-jdk8-downloads.html)
-- [NetBeans IDE 8.2+](https://netbeans.org)
+- [NetBeans IDE 8.2+](https://netbeans.org/downloads/8.2/rc/)
 
 **Examples:**
 
