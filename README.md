@@ -18,6 +18,11 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
+**Requirements:**
+
+- [Java JDK 8](https://www.oracle.com/za/java/technologies/javase/javase-jdk8-downloads.html)
+- [NetBeans IDE 8.2+](https://netbeans.org)
+
 **Examples:**
 
 See [SwingGameLibrary-Samples
