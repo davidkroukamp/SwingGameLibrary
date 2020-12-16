@@ -7,6 +7,7 @@ package za.co.swinggamelibrary;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class Scene extends JPanel {
     private final GameLoop gameLoop;
     private final int width, height;
     protected final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
+    private boolean renderDebugInfo;
+    private boolean drawDebugMasks;
 
     public Scene(int fps, int width, int height) {
         super(true);
@@ -63,8 +66,16 @@ public class Scene extends JPanel {
             if (node.isRemovedFromParent()) {
                 spriteIterator.remove();
             } else {
-                node.render(g2d);
+                node.render(g2d, drawDebugMasks);
             }
+        }
+
+        if (renderDebugInfo) {
+            FontMetrics metrics = g2d.getFontMetrics(getFont());
+            g2d.setColor(Color.WHITE);
+            int textX = getHeight() - metrics.getHeight() + metrics.getAscent();
+            g2d.drawString("FPS: " + (int) gameLoop.getAverageFps(), 0, textX - (metrics.getHeight()));
+            g2d.drawString("Objects: " + nodes.size(), 0, textX);
         }
     }
 
@@ -99,6 +110,14 @@ public class Scene extends JPanel {
                 });
             });
         }
+    }
+
+    public void setRenderDebugInfo(boolean renderDebugInfo) {
+        this.renderDebugInfo = renderDebugInfo;
+    }
+
+    public void setDrawDebugMasks(boolean drawDebugMasks) {
+        this.drawDebugMasks = drawDebugMasks;
     }
 
     public void add(INode node) {

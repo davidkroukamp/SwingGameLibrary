@@ -39,5 +39,5 @@ public interface INode {
 
     public void update(long elapsedTime);
 
-    public void render(Graphics2D g2d);
+    public void render(Graphics2D g2d, boolean drawDebugMasks);
 }

@@ -5,6 +5,7 @@
  */
 package za.co.swinggamelibrary;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
@@ -98,7 +99,12 @@ public class Sprite extends Animator implements INode {
     }
 
     @Override
-    public void render(Graphics2D g2d) {
+    public void render(Graphics2D g2d, boolean drawDebugMasks) {
+        if (drawDebugMasks) {
+            g2d.setColor(Color.RED);
+            g2d.drawRect((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+        }
+
         g2d.drawImage(getCurrentImage(), (int) getX(), (int) getY(), null);
     }
 

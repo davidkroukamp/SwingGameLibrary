@@ -24,12 +24,12 @@ public abstract class GameLoop {
     //If you're worried about visual hitches more than perfect timing, set this to 1. else 5 should be okay
     private final int MAX_UPDATES_BETWEEN_RENDER = 1;
     private final int maxUpdatesBetweenRender;
+    private long fpsCounterStartTime;
 
     public GameLoop(int fps, int maxUpdatesBetweenRender) {
         FRAMES_PER_SECOND = fps;
         TIME_BETWEEN_UPDATES = 1000000000 / FRAMES_PER_SECOND;
         gameLoopThread = null;
-        frameCount = 0;
         running = new AtomicBoolean(false);
         paused = new AtomicBoolean(false);
         if (maxUpdatesBetweenRender > 0) {
@@ -59,6 +59,8 @@ public abstract class GameLoop {
         long lastUpdateTime = System.nanoTime();
         //store the time we started this will be used for updating map and charcter animations
         long currTime = System.currentTimeMillis();
+        fpsCounterStartTime = System.currentTimeMillis();
+        frameCount = 0;
 
         while (running.get()) {
             if (!paused.get()) {
@@ -107,9 +109,12 @@ public abstract class GameLoop {
     public void stop() {
         paused.set(false);
         running.set(false);
+        gameLoopThread.interrupt();
     }
 
     public void resume() {
+        fpsCounterStartTime = System.currentTimeMillis();
+        frameCount = 0;
         paused.set(false);
     }
 
@@ -119,6 +124,14 @@ public abstract class GameLoop {
 
     public boolean isRunning() {
         return running.get();
+    }
+
+    public double getAverageFps() {
+        if (fpsCounterStartTime == 0) {
+            return 0;
+        }
+
+        return (double) frameCount / ((System.currentTimeMillis() - fpsCounterStartTime) / 1000d);
     }
 
     // updtes position and animation of sprites
