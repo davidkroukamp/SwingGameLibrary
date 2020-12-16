@@ -13,10 +13,10 @@ import java.awt.geom.Rectangle2D;
  */
 public interface ICollidable {
 
+    public Rectangle2D getBounds2D();
+
     public boolean intersects(ICollidable collidable);
 
     public void onCollision(INode node);
-
-    public Rectangle2D getBounds2D();
 
 }
