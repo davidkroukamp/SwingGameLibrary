@@ -18,7 +18,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] `Scene` should be nothing more then an `INode` with a `Director` which extends `JPanel` running the game loop and switching between `Scene`s
 - [ ] `ImageScaler` to be built into `Scene` (so no point calcs are needed from a user perspective)
 
-- [ ] Add Spritesheet/plist support for `SpriteFrameCache`
+- [ ] Add Spritesheet support for `SpriteFrameCache`
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
