@@ -31,3 +31,6 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 
 See [SwingGameLibrary-Samples
 ](https://github.com/davidkroukamp/swinggamelibrary-samples)
+
+**Special Thanks to:**
+- [TinySound](https://github.com/finnkuusisto/TinySound) for the great library, which is the backbone of *SwingGameLibrary's* `AudioEngine`
