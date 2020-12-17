@@ -5,6 +5,7 @@ The allows you to be able to leverage existing knowledge of Java Swing component
 
 The projects nomenclature might seem familiar if you have ever used [cocos2dx](https://github.com/cocos2d/cocos2d-x) and thats because it is what inspired me to write this.
 
+
 **TODO** (before beta release):
 - [x] Remove `Scene` reference from `GameLoop`
 - [x] Iterate sprites using iterator or synchronized block in places that access sprite list
@@ -22,6 +23,8 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
+***
+
 **Requirements:**
 
 - [Java JDK 8](https://www.oracle.com/za/java/technologies/javase/javase-jdk8-downloads.html)
@@ -31,6 +34,8 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 
 See [SwingGameLibrary-Samples
 ](https://github.com/davidkroukamp/swinggamelibrary-samples)
+
+***
 
 **Special Thanks to:**
 - [TinySound](https://github.com/finnkuusisto/TinySound) for the great library, which is the backbone of *SwingGameLibrary's* `AudioEngine`
