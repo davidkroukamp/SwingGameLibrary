@@ -66,12 +66,14 @@ public class Scene extends JPanel {
             if (node.isRemovedFromParent()) {
                 spriteIterator.remove();
             } else {
-                if (drawDebugMasks) {
-                    g2d.setColor(Color.RED);
-                    g2d.drawRect((int) node.getX(), (int) node.getY(), (int) node.getWidth(), (int) node.getHeight());
-                }
+                if (node.isVisible()) {
+                    if (drawDebugMasks) {
+                        g2d.setColor(Color.RED);
+                        g2d.drawRect((int) node.getX(), (int) node.getY(), (int) node.getWidth(), (int) node.getHeight());
+                    }
 
-                node.render(g2d);
+                    node.render(g2d);
+                }
             }
         }
 
