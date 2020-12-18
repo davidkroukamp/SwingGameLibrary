@@ -48,7 +48,6 @@ public class Animation {
                 } else {
                     animationTime = 0;
                     currIndex++;
-                    done.getAndSet(true);
                 }
             }
         }

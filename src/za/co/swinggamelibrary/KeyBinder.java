@@ -17,16 +17,9 @@ import javax.swing.KeyStroke;
  */
 public class KeyBinder {
 
-    private final JComponent container;
-    private final int inputMap;
     public static final int WHEN_IN_FOCUSED_WINDOW = JComponent.WHEN_IN_FOCUSED_WINDOW,
             WHEN_FOCUSED = JComponent.WHEN_FOCUSED,
             WHEN_ANCESTOR_OF_FOCUSED_COMPONENT = JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT;
-
-    public KeyBinder(JComponent container, int inputMap) {
-        this.container = container;
-        this.inputMap = inputMap;
-    }
 
     public static void putKeyBinding(JComponent container, int inputMap, int key, boolean onRelease, Consumer<ActionEvent> keybindingAction, String description) {
         container.getInputMap(inputMap).put(KeyStroke.getKeyStroke(key, 0, onRelease), description);
@@ -36,23 +29,6 @@ public class KeyBinder {
                 keybindingAction.accept(e);
             }
         });
-    }
-
-    public void addKeyBinding(int key, boolean onRelease, Consumer<ActionEvent> keybindingAction, String description) {
-        putKeyBinding(container, inputMap, key, onRelease, keybindingAction, description);
-    }
-
-    public void addKeyBindingOnPress(int key, Consumer<ActionEvent> keybindingAction, String description) {
-        putKeyBinding(container, inputMap, key, false, keybindingAction, description);
-    }
-
-    public void addKeyBindingOnRelease(int key, Consumer<ActionEvent> keybindingAction, String description) {
-        putKeyBinding(container, inputMap, key, true, keybindingAction, description);
-    }
-
-    public void addKeyBindingOnPressAndRelease(int key, Consumer<ActionEvent> onPressAction, String onPressDesc, Consumer<ActionEvent> onReleaseAction, String onReleaseDesc) {
-        putKeyBinding(container, inputMap, key, false, onPressAction, onPressDesc);
-        putKeyBinding(container, inputMap, key, true, onReleaseAction, onReleaseDesc);
     }
 
     public static void putKeyBindingOnPress(JComponent container, int inputMap, int key, Consumer<ActionEvent> keybindingAction, String description) {
