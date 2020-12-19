@@ -6,6 +6,7 @@
 package za.co.swinggamelibrary;
 
 import java.awt.Graphics2D;
+import java.util.List;
 
 /**
  *
@@ -32,7 +33,7 @@ public interface INode {
     public boolean isVisible();
 
     public void setVisible(boolean visible);
-    
+
     public void removeFromParent();
 
     public boolean isRemovedFromParent();
@@ -40,4 +41,16 @@ public interface INode {
     public void update(long elapsedTime);
 
     public void render(Graphics2D g2d);
+
+    public INode getParent();
+
+    void setParent(INode node);
+
+    public void add(INode node);
+
+    public void remove(INode node);
+
+    public List<INode> getNodes();
+
+    public void removeAll();
 }

@@ -12,25 +12,26 @@ import java.awt.geom.Rectangle2D;
  *
  * @author dkrou
  */
-public class Sprite extends Animation implements INode {
+public class Sprite extends Node {
 
     protected Rectangle2D.Double rectangle;
-    protected boolean visible;
-    protected boolean removedFromParent;
+    private final Animation animation;
 
-    public Sprite(int x, int y, AnimationFrame animation) {
-        super(animation);
-        rectangle = new Rectangle2D.Double(x, y, getCurrentImage().getWidth(), getCurrentImage().getHeight());
+    public Sprite(int x, int y, AnimationFrame animationFrame) {
+        animation = new Animation(animationFrame);
+        rectangle = new Rectangle2D.Double(x, y, animation.getCurrentImage().getWidth(), animation.getCurrentImage().getHeight());
     }
 
     @Override
     public void update(long elapsedTime) {
         super.update(elapsedTime);
+        animation.update(elapsedTime);
     }
 
     @Override
     public void render(Graphics2D g2d) {
-        g2d.drawImage(getCurrentImage(), (int) getX(), (int) getY(), null);
+        g2d.drawImage(animation.getCurrentImage(), (int) getX(), (int) getY(), null);
+        super.render(g2d);
     }
 
     @Override
@@ -65,41 +66,20 @@ public class Sprite extends Animation implements INode {
 
     @Override
     public double getWidth() {
-        if (getCurrentImage() == null) {//there might be no image (which is unwanted ofcourse but  we must not get NPE so we check for null and return 0
+        if (animation.getCurrentImage() == null) {//there might be no image (which is unwanted ofcourse but  we must not get NPE so we check for null and return 0
             return rectangle.width = 0;
         }
 
-        return rectangle.width = getCurrentImage().getWidth();
+        return rectangle.width = animation.getCurrentImage().getWidth();
     }
 
     @Override
     public double getHeight() {
-        if (getCurrentImage() == null) {
+        if (animation.getCurrentImage() == null) {
             return rectangle.height = 0;
         }
 
-        return rectangle.height = getCurrentImage().getHeight();
-    }
-
-    @Override
-    public boolean isVisible() {
-        return visible;
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
-    @Override
-    public void removeFromParent() {
-        removedFromParent = true;
-        visible = false;
-    }
-
-    @Override
-    public boolean isRemovedFromParent() {
-        return removedFromParent;
+        return rectangle.height = animation.getCurrentImage().getHeight();
     }
 
 }
