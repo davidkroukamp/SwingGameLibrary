@@ -17,6 +17,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Implement `AudioEngine`
 - [x] `INode` should be able to be added to another `INode` and rendered
 - [x] `Scene` should be nothing more then an `INode` with a `Director` which extends `JPanel` running the game loop and switching between `Scene`s
+- [ ] `Node` co-ordinates should be relative to parent
 - [ ] Implement `Animation` loops as currently all animations run indefinitely 
 - [ ] `ImageScaler` to be built into `Scene` (so no point calcs are needed from a user perspective)
 
