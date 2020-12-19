@@ -14,8 +14,8 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Add a `INode` interface which `Scene` will accept and `Sprite` will implement
 - [x] Add a `ICollidable` interface which will allow automatic collision detections
 - [x] Allow debug details/masks to be shown/drawn i.e FPS, objects rendered and red rectangles around all nodes when enabled
-- [ ] Implement `AudioEngine`
-- [ ] Implement `Animation` loops 
+- [ ] Implement `AudioEngine` for background music as one time sounds are implemented and working
+- [ ] Implement `Animation` loops as currently all animations run indefinitely 
 - [ ] `INode` should be able to be added to another `INode` and rendered
 - [ ] `Scene` should be nothing more then an `INode` with a `Director` which extends `JPanel` running the game loop and switching between `Scene`s
 - [ ] `ImageScaler` to be built into `Scene` (so no point calcs are needed from a user perspective)
