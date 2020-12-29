@@ -16,6 +16,7 @@ public class Animation {
 
     private final AnimationFrame animation;
     private int currIndex;
+    private int loops = 1;
     private long animationTime;
     private final AtomicBoolean done;
 
@@ -37,6 +38,10 @@ public class Animation {
     }
 
     public void update(long elapsedTime) {
+        if (done.get()) {
+            return;
+        }
+
         if (this.animation.getSpriteFrames().size() > 1) {
             animationTime += elapsedTime;
             // TODO add loops check
@@ -44,7 +49,13 @@ public class Animation {
                 if (currIndex + 1 >= this.animation.getSpriteFrames().size()) { // we reached the end of the animation
                     animationTime = 0;
                     currIndex = 0;
-                    done.getAndSet(true);
+                    if (loops < animation.getLoops()) {
+                        loops++;
+                    } else {
+                        if (animation.getLoops() > 0) {
+                            done.getAndSet(true);
+                        }
+                    }
                 } else {
                     animationTime = 0;
                     currIndex++;
