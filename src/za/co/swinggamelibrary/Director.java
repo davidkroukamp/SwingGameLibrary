@@ -76,8 +76,7 @@ public class Director extends JPanel {
 
     public void setScene(Scene scene) {
         this.scene = scene;
-        this.scene.setWidth(getWidth());
-        this.scene.setHeight(getHeight());
+        this.scene.setDirector(this);
         this.scene.setDrawDebugMasks(drawDebugMasks);
     }
 

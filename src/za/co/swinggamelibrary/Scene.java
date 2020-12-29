@@ -16,8 +16,7 @@ import java.util.Iterator;
 public class Scene extends Node {
 
     private boolean drawDebugMasks;
-    private double width;
-    private double height;
+    private Director director;
 
     @Override
     public void update(long elapsedTime) {
@@ -28,7 +27,7 @@ public class Scene extends Node {
     @Override
     public void render(Graphics2D g2d) {
         // draw all Sprites to the screen which are visible and or havent been removed from the scene
-        Iterator<INode> spriteIterator = nodes.iterator();
+        Iterator<INode> spriteIterator = getNodes().iterator();
         while (spriteIterator.hasNext()) {
             INode node = (INode) spriteIterator.next();
             if (node.isVisible()) {
@@ -43,46 +42,37 @@ public class Scene extends Node {
     }
 
     private void checkForCollisions() {
-        synchronized (nodes) {
-            nodes.stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
-                nodes.stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
-                    ICollidable outerCollidable = (ICollidable) outerNode;
-                    ICollidable innerCollidable = (ICollidable) innerNode;
+        getNodes().stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
+            getNodes().stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
+                INode outerCollidable = (INode) outerNode;
+                INode innerCollidable = (INode) innerNode;
 
-                    // check if the 2 nodes are colliding/intersecting
-                    if (outerCollidable.intersects(innerCollidable)) {
-                        // check to ensure we are not checking ourselves
-                        if (!outerNode.equals(innerNode)) {
-                            outerCollidable.onCollision(innerNode);
-                        }
+                // check if the 2 nodes are colliding/intersecting
+                if (outerCollidable.intersects(innerCollidable)) {
+                    // check to ensure we are not checking ourselves
+                    if (!outerNode.equals(innerNode)) {
+                        ((ICollidable) outerCollidable).onCollision(innerNode);
                     }
-                });
+                }
             });
-        }
+        });
     }
 
     public void setDrawDebugMasks(boolean drawDebugMasks) {
         this.drawDebugMasks = drawDebugMasks;
     }
 
-    @Override
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    @Override
-    public void setHeight(double height) {
-        this.height = height;
+    public void setDirector(Director director) {
+        this.director = director;
     }
 
     @Override
     public double getWidth() {
-        return width;
+        return director == null ? 0 : director.getWidth();
     }
 
     @Override
     public double getHeight() {
-        return height;
+        return director == null ? 0 : director.getHeight();
     }
-
 }
