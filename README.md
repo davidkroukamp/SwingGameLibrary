@@ -20,6 +20,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] `Node` co-ordinates should be relative to parent. `Scene` node should default by obtaining width and height from the `Director`.
 - [x] Implement `Animation` loops as currently all animations run indefinitely 
 - [ ] `ImageScaler` to be first class citizen built into `Director`/`Scene` (so no point calcs for various screen widths are needed from a user perspective)
+- [ ] `parent` should be nulled when `Node#remove` is called.
 - [ ] Add Spritesheet support for `SpriteFrameCache`
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
