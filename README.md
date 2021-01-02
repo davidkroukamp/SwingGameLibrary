@@ -22,6 +22,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] `ImageScaler` to be first class citizen built into `Director`/`Scene` (so no point calcs for various screen widths are needed from a user perspective)
 - [ ] `parent` should be nulled when `Node#remove` is called.
 - [ ] Add Spritesheet support for `SpriteFrameCache`
+- [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
