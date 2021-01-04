@@ -22,18 +22,21 @@ public class Node implements INode {
     private boolean removedFromParent;
     private INode parent;
     private final Rectangle2D.Double rectangle;
-    private final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
+    protected final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
 
     public Node() {
+        visible = true;
         rectangle = new Rectangle2D.Double(0, 0, 0, 0);
     }
 
-    public Node(double width, double height) {
+    public Node(int width, int height) {
+        visible = true;
         rectangle = new Rectangle2D.Double(0, 0, width, height);
     }
 
-    public Node(int x, int y, double width, double height) {
-        rectangle = new Rectangle2D.Double(x, y, width, height);
+    public Node(int worldX, int worldY, int width, int height) {
+        visible = true;
+        rectangle = new Rectangle2D.Double(worldX, worldY, width, height);
     }
 
     @Override
@@ -53,6 +56,7 @@ public class Node implements INode {
             INode node = (INode) spriteIterator.next();
             // draw the object to JPanel
             if (node.isRemovedFromParent()) {
+                node.setParent(null);
                 spriteIterator.remove();
             } else {
                 if (node.isVisible()) {
@@ -65,6 +69,7 @@ public class Node implements INode {
     @Override
     public void add(INode node) {
         synchronized (nodes) {
+            // TODO perhaps throw an exception
             if (node.getParent() != null) {
                 return;
             }
@@ -76,10 +81,14 @@ public class Node implements INode {
 
     @Override
     public void remove(INode node) {
-        Iterator<INode> nodeIterator = nodes.iterator();
-        while (nodeIterator.hasNext()) {
-            if (nodeIterator.next().equals(node)) {
-                nodeIterator.remove();
+        synchronized (nodes) {
+            Iterator<INode> nodeIterator = nodes.iterator();
+            while (nodeIterator.hasNext()) {
+                if (nodeIterator.next().equals(node)) {
+                    node.setParent(null);
+                    node.removeFromParent();
+                    nodeIterator.remove();
+                }
             }
         }
     }
@@ -87,15 +96,19 @@ public class Node implements INode {
     @Override
     public void removeAll() {
         synchronized (nodes) {
-            nodes.clear();
+            Iterator<INode> nodeIterator = nodes.iterator();
+            while (nodeIterator.hasNext()) {
+                INode node = nodeIterator.next();
+                node.setParent(null);
+                node.removeFromParent();
+                nodeIterator.remove();
+            }
         }
     }
 
     @Override
     public List<INode> getNodes() {
-        synchronized (nodes) {
-            return nodes;
-        }
+        return nodes;
     }
 
     @Override
@@ -130,39 +143,53 @@ public class Node implements INode {
     }
 
     @Override
-    public void setX(double x) {
+    public void setWorldX(int x) {
         rectangle.x = x;
     }
 
     @Override
-    public void setY(double y) {
+    public void setWorldY(int y) {
         rectangle.y = y;
     }
 
     @Override
-    public void setWidth(double width) {
+    public int getWorldX() {
+        return getParent() != null ? getParent().getWorldX() + (int) rectangle.x : (int) rectangle.x;
+    }
+
+    @Override
+    public int getWorldY() {
+        return getParent() != null ? getParent().getWorldY() + (int) rectangle.y : (int) rectangle.y;
+    }
+
+    @Override
+    public int getScreenX() {
+        return (int) (ImageScaler.getInstance().getWidthScaleFactor() * getWorldX());
+    }
+
+    @Override
+    public int getScreenY() {
+        return (int) (ImageScaler.getInstance().getHeightScaleFactor() * getWorldY());
+    }
+
+    @Override
+    public void setScreenX(int x) {
+        rectangle.x = x / ImageScaler.getInstance().getWidthScaleFactor();
+    }
+
+    @Override
+    public void setScreenY(int y) {
+        rectangle.y = y / ImageScaler.getInstance().getHeightScaleFactor();
+    }
+
+    @Override
+    public void setWidth(int width) {
         rectangle.width = width;
     }
 
     @Override
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         rectangle.height = height;
-    }
-
-    @Override
-    public double getX() {
-        return getParent() != null ? getParent().getX() + rectangle.x : rectangle.x;
-    }
-
-    @Override
-    public double getY() {
-        return getParent() != null ? getParent().getY() + rectangle.y : rectangle.y;
-    }
-
-    @Override
-    public void setPosition(double x, double y) {
-        this.rectangle.x = x;
-        this.rectangle.y = y;
     }
 
     @Override
@@ -176,12 +203,17 @@ public class Node implements INode {
     }
 
     @Override
-    public Rectangle2D getBounds2D() {
-        return rectangle.getBounds2D();
-    }
-
-    @Override
     public boolean intersects(INode node) {
-        return rectangle.intersects(node.getBounds2D());
+        if ((getWidth() <= 0.0 || getHeight() <= 0.0) || node.getWidth() <= 0 || node.getHeight() <= 0) {
+            return false;
+        }
+        double x = node.getScreenX();
+        double y = node.getScreenY();
+        double x0 = getScreenX();
+        double y0 = getScreenY();
+        return (x + node.getWidth() > x0
+                && y + node.getHeight() > y0
+                && x < x0 + getWidth()
+                && y < y0 + getHeight());
     }
 }

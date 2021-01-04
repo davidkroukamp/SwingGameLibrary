@@ -55,9 +55,9 @@ public abstract class GameLoop {
     }
 
     private void gameLoop() {
-        //We will need the last update time.
+        // we will need the last update time.
         long lastUpdateTime = System.nanoTime();
-        //store the time we started this will be used for updating map and charcter animations
+        // store the time we started this will be used for updating map and charcter animations
         long currTime = System.currentTimeMillis();
         resetFpsCounter();
 
@@ -68,15 +68,15 @@ public abstract class GameLoop {
                 currTime += elapsedTime;
 
                 int updateCount = 0;
-                //Do as many game updates as we need to, potentially playing catchup.
+                // do as many game updates as we need to, potentially playing catchup.
                 while (now - lastUpdateTime >= TIME_BETWEEN_UPDATES && updateCount < maxUpdatesBetweenRender) {
                     update(elapsedTime);//Update the entity movements and collision checks etc (all has to do with updating the games status i.e  call move() on Enitites)
                     lastUpdateTime += TIME_BETWEEN_UPDATES;
                     updateCount++;
                 }
 
-                //If for some reason an update takes forever, we don't want to do an insane number of catchups.
-                //If you were doing some sort of game that needed to keep EXACT time, you would get rid of this.
+                // if for some reason an update takes forever, we don't want to do an insane number of catchups.
+                // if you were doing some sort of game that needed to keep EXACT time, you would get rid of this.
                 if (now - lastUpdateTime >= TIME_BETWEEN_UPDATES) {
                     lastUpdateTime = now - TIME_BETWEEN_UPDATES;
                 }

@@ -19,25 +19,23 @@ import javax.swing.JPanel;
 public class Director extends JPanel {
 
     private final GameLoop gameLoop;
-    private final int width, height;
     private Scene scene;
     private boolean renderDebugInfo;
     private boolean drawDebugMasks;
 
-    public Director(int fps, int width, int height) {
+    public Director(int fps) {
         super(true);
+        // TODO check if design metrics are initialised throw exception if not
         this.setIgnoreRepaint(true);//we will do the repainting
-        this.setSize(width, height);
-        this.width = width;
-        this.height = height;
+        this.setBackground(Color.BLACK);
         this.gameLoop = new GameLoop(fps, 0) {
             @Override
-            public void update(long elapsedTime) { //updates Sprite movement and Animation
+            public void update(long elapsedTime) { //updates Node/Sprite movement and or animation
                 Director.this.update(elapsedTime);
             }
 
             @Override
-            public void render(long elapsedTime) { // draws sprites
+            public void render(long elapsedTime) { // draws nodes/sprites
                 Director.this.repaint();
             }
         };
@@ -46,14 +44,10 @@ public class Director extends JPanel {
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
+        
         Graphics2D g2d = (Graphics2D) graphics;
         Graphics2DHelper.applyRenderHints(g2d);
-
-        // TODO should be able to set background of scene
-        // draw background
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-
+        
         scene.render(g2d);
 
         if (renderDebugInfo) {
@@ -67,7 +61,8 @@ public class Director extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(width, height);
+        Dimension currentDimensions = DesignMetrics.getInstance().getCurrentResolutionDimensions();
+        return new Dimension(currentDimensions.width, currentDimensions.height);
     }
 
     public void update(long elapsedTime) {

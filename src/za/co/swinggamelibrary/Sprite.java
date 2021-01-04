@@ -15,8 +15,8 @@ public class Sprite extends Node {
 
     private final Animation animation;
 
-    public Sprite(int x, int y, AnimationFrame animationFrame) {
-        super(x, y, 0, 0);
+    public Sprite(int worldX, int worldY, AnimationFrame animationFrame) {
+        super(worldX, worldY, 0, 0);
         animation = new Animation(animationFrame);
         this.setWidth(animation.getCurrentImage().getWidth());
         this.setHeight(animation.getCurrentImage().getHeight());
@@ -30,7 +30,7 @@ public class Sprite extends Node {
 
     @Override
     public void render(Graphics2D g2d) {
-        g2d.drawImage(animation.getCurrentImage(), (int) getX(), (int) getY(), null);
+        g2d.drawImage(animation.getCurrentImage(), (int) getScreenX(), (int) getScreenY(), null);
         super.render(g2d);
     }
 }

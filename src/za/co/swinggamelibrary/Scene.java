@@ -33,7 +33,7 @@ public class Scene extends Node {
             if (node.isVisible()) {
                 if (drawDebugMasks) {
                     g2d.setColor(Color.RED);
-                    g2d.drawRect((int) node.getX(), (int) node.getY(), (int) node.getWidth(), (int) node.getHeight());
+                    g2d.drawRect((int) node.getScreenX(), (int) node.getScreenY(), (int) node.getWidth(), (int) node.getHeight());
                 }
             }
         }
@@ -42,20 +42,22 @@ public class Scene extends Node {
     }
 
     private void checkForCollisions() {
-        getNodes().stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
-            getNodes().stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
-                INode outerCollidable = (INode) outerNode;
-                INode innerCollidable = (INode) innerNode;
+        synchronized (nodes) {// TODO causes concurrent mod issue maybe copy arrays?
+            nodes.stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
+                nodes.stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
+                    INode outerCollidable = (INode) outerNode;
+                    INode innerCollidable = (INode) innerNode;
 
-                // check if the 2 nodes are colliding/intersecting
-                if (outerCollidable.intersects(innerCollidable)) {
-                    // check to ensure we are not checking ourselves
-                    if (!outerNode.equals(innerNode)) {
-                        ((ICollidable) outerCollidable).onCollision(innerNode);
+                    // check if the 2 nodes are colliding/intersecting
+                    if (outerCollidable.intersects(innerCollidable)) {
+                        // check to ensure we are not checking ourselves
+                        if (!outerNode.equals(innerNode)) {
+                            ((ICollidable) outerCollidable).onCollision(innerNode);
+                        }
                     }
-                }
+                });
             });
-        });
+        }
     }
 
     public void setDrawDebugMasks(boolean drawDebugMasks) {

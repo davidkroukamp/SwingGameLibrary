@@ -16,10 +16,29 @@ import java.util.ArrayList;
  */
 public class ImageScaler {
 
+    private static ImageScaler single_instance = null;
+
+    public static ImageScaler initialise(Dimension designResolution, Dimension dimension) {
+        if (single_instance == null) {
+            single_instance = new ImageScaler(designResolution, dimension);
+        }
+
+        return single_instance;
+
+    }
+
+    public static ImageScaler getInstance() {
+        if (single_instance == null) {
+            // TODO throw exception Director needs to be rrated with desgn metrics set before this is instanitiated and usable
+        }
+
+        return single_instance;
+    }
+
     private final Dimension origScreenSize;
     private final Dimension newScreenSize;
 
-    public ImageScaler(Dimension origScreenSize, Dimension newScreenSize) {
+    private ImageScaler(Dimension origScreenSize, Dimension newScreenSize) {
         this.origScreenSize = origScreenSize;
         this.newScreenSize = newScreenSize;
     }

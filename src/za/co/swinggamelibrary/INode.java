@@ -15,17 +15,25 @@ import java.util.List;
  */
 public interface INode {
 
-    public void setX(double x);
+    public void setWorldX(int x);
 
-    public void setY(double y);
+    public void setWorldY(int y);
 
-    public void setWidth(double width);
+    public int getWorldX();
 
-    public void setHeight(double height);
+    public int getWorldY();
 
-    public double getX();
+    public void setScreenX(int x);
 
-    public double getY();
+    public void setScreenY(int y);
+
+    public int getScreenX();
+
+    public int getScreenY();
+
+    public void setWidth(int width);
+
+    public void setHeight(int height);
 
     public double getWidth();
 
@@ -54,10 +62,6 @@ public interface INode {
     public List<INode> getNodes();
 
     public void removeAll();
-
-    public void setPosition(double x, double y);
-
-    public Rectangle2D getBounds2D();
 
     boolean intersects(INode node);
 }
