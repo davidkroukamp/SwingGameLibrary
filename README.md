@@ -19,8 +19,9 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] `Scene` should be nothing more then an `INode` with a `Director` which extends `JPanel` running the game loop and switching between `Scene`s
 - [x] `Node` co-ordinates should be relative to parent. `Scene` node should default by obtaining width and height from the `Director`.
 - [x] Implement `Animation` loops as currently all animations run indefinitely 
-- [ ] `ImageScaler` to be first class citizen built into `Director`/`Scene` (so no point calcs for various screen widths are needed from a user perspective)
-- [ ] `parent` should be nulled when `Node#remove` is called.
+- [x] `ImageScaler` to be first class citizen built into `Director`/`Scene` (so no point calcs for various screen widths are needed from a user perspective)
+- [x] `parent` should be nulled when `Node#remove` is called.
+- [ ] Checking for collisions should use a copy of the nodes as to avoid concurrent modification issues (when adding inside the `onCollision` method)
 - [ ] Add Spritesheet support for `SpriteFrameCache`
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
