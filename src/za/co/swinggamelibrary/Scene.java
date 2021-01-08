@@ -8,6 +8,7 @@ package za.co.swinggamelibrary;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -42,22 +43,21 @@ public class Scene extends Node {
     }
 
     private void checkForCollisions() {
-        synchronized (nodes) {// TODO causes concurrent mod issue maybe copy arrays?
-            nodes.stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
-                nodes.stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
-                    INode outerCollidable = (INode) outerNode;
-                    INode innerCollidable = (INode) innerNode;
+        List<INode> nodes = getNodes();
+        nodes.stream().filter((outerNode) -> (outerNode instanceof ICollidable)).forEachOrdered((outerNode) -> {
+            nodes.stream().filter((innerNode) -> (innerNode instanceof ICollidable)).forEachOrdered((innerNode) -> {
+                INode outerCollidable = (INode) outerNode;
+                INode innerCollidable = (INode) innerNode;
 
-                    // check if the 2 nodes are colliding/intersecting
-                    if (outerCollidable.intersects(innerCollidable)) {
-                        // check to ensure we are not checking ourselves
-                        if (!outerNode.equals(innerNode)) {
-                            ((ICollidable) outerCollidable).onCollision(innerNode);
-                        }
+                // check if the 2 nodes are colliding/intersecting
+                if (outerCollidable.intersects(innerCollidable)) {
+                    // check to ensure we are not checking ourselves
+                    if (!outerNode.equals(innerNode)) {
+                        ((ICollidable) outerCollidable).onCollision(innerNode);
                     }
-                });
+                }
             });
-        }
+        });
     }
 
     public void setDrawDebugMasks(boolean drawDebugMasks) {

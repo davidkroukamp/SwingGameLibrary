@@ -6,7 +6,6 @@
 package za.co.swinggamelibrary;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 /**
@@ -64,4 +63,10 @@ public interface INode {
     public void removeAll();
 
     boolean intersects(INode node);
+    
+    int getChildCount();
+    
+    void setZOrder(int zOrder);
+    
+    int getZOrder();
 }

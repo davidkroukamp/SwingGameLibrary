@@ -55,7 +55,7 @@ public class Director extends JPanel {
             g2d.setColor(Color.WHITE);
             int textX = (int) getHeight() - metrics.getHeight() + metrics.getAscent();
             g2d.drawString("FPS: " + (int) gameLoop.getAverageFps(), 0, textX - (metrics.getHeight()));
-            g2d.drawString("Objects: " + scene.getNodes().size(), 0, textX);
+            g2d.drawString("Objects: " + scene.getChildCount(), 0, textX);
         }
     }
 

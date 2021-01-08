@@ -9,8 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -22,7 +24,8 @@ public class Node implements INode {
     private boolean removedFromParent;
     private INode parent;
     private final Rectangle2D.Double rectangle;
-    protected final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
+    private final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
+    private int zOrder = 0;
 
     public Node() {
         visible = true;
@@ -42,7 +45,7 @@ public class Node implements INode {
     @Override
     public void update(long elapsedTime) {
         synchronized (nodes) {
-            nodes.stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
+            getNodes().stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
                 node.update(elapsedTime);
             });
         }
@@ -51,13 +54,12 @@ public class Node implements INode {
     @Override
     public void render(Graphics2D g2d) {
         // draw all Sprites to the screen which are visible and or havent been removed from the scene
-        Iterator<INode> spriteIterator = nodes.iterator();
+        Iterator<INode> spriteIterator = getNodes().iterator();
         while (spriteIterator.hasNext()) {
             INode node = (INode) spriteIterator.next();
             // draw the object to JPanel
             if (node.isRemovedFromParent()) {
-                node.setParent(null);
-                spriteIterator.remove();
+                remove(node);
             } else {
                 if (node.isVisible()) {
                     node.render(g2d);
@@ -76,6 +78,11 @@ public class Node implements INode {
 
             node.setParent(this);
             nodes.add(node);
+            
+            // sort nodes by z order
+            List<INode> unsortedNodes = new ArrayList<>(nodes);
+            nodes.clear();
+            nodes.addAll(unsortedNodes.stream().sorted(Comparator.comparingInt(n -> n.getZOrder())).collect(Collectors.toList()));
         }
     }
 
@@ -108,7 +115,9 @@ public class Node implements INode {
 
     @Override
     public List<INode> getNodes() {
-        return nodes;
+        synchronized (nodes) {
+            return new ArrayList<>(nodes);
+        }
     }
 
     @Override
@@ -215,5 +224,27 @@ public class Node implements INode {
                 && y + node.getHeight() > y0
                 && x < x0 + getWidth()
                 && y < y0 + getHeight());
+    }
+
+    @Override
+    public int getChildCount() {
+        int childCount = nodes.size();
+        Iterator<INode> nodeIterator = nodes.iterator();
+        while (nodeIterator.hasNext()) {
+            INode node = nodeIterator.next();
+            childCount += node.getChildCount();
+        }
+
+        return childCount;
+    }
+
+    @Override
+    public void setZOrder(int zOrder) {
+        this.zOrder = zOrder;
+    }
+
+    @Override
+    public int getZOrder() {
+        return zOrder;
     }
 }
