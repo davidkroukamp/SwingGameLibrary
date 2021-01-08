@@ -22,9 +22,12 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] `ImageScaler` to be first class citizen built into `Director`/`Scene` (so no point calcs for various screen widths are needed from a user perspective)
 - [x] `parent` should be nulled when `Node#remove` is called.
 - [x] Checking for collisions should use a copy of the nodes as to avoid concurrent modification issues (when adding inside the `onCollision` method)
-- [x] add z-order to `Node` as well as fix Node size counts
+- [x] Add z-order to `Node` as well as fix Node size counts
 - [ ] Add Spritesheet support for `SpriteFrameCache`
+- [ ] `Node` should have `onEnter`/`onExit` callbacks for when a `Node` is made visible or removed from the scene/parent.
+- [ ] Remove any unnecessary synchronized blocks 
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
+- [ ] `Scene` should only render visible sprites in the screen/camera view
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
