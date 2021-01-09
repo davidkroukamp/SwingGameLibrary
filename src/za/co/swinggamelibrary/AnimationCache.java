@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class AnimationCache {
 
     private static AnimationCache single_instance = null;
-    private final HashMap<String, AnimationFrame> animationCache;
+    private final HashMap<String, Animation> animationCache;
 
     private AnimationCache() {
         animationCache = new HashMap<>();
@@ -28,7 +28,7 @@ public class AnimationCache {
         return single_instance;
     }
 
-    public void addAnimation(String name, AnimationFrame animation) {
+    public void addAnimation(String name, Animation animation) {
         animationCache.put(name, animation);
     }
 
@@ -36,7 +36,7 @@ public class AnimationCache {
         animationCache.remove(name);
     }
 
-    public AnimationFrame getAnimation(String name) {
+    public Animation getAnimation(String name) {
         return animationCache.get(name);
     }
 

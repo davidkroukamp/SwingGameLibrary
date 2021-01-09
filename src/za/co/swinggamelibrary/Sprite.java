@@ -13,11 +13,11 @@ import java.awt.Graphics2D;
  */
 public class Sprite extends Node {
 
-    private final Animation animation;
+    private final Animator animation;
 
-    public Sprite(int worldX, int worldY, AnimationFrame animationFrame) {
+    public Sprite(int worldX, int worldY, Animation animationFrame) {
         super(worldX, worldY, 0, 0);
-        animation = new Animation(animationFrame);
+        animation = new Animator(animationFrame);
         this.setWidth(animation.getCurrentImage().getWidth());
         this.setHeight(animation.getCurrentImage().getHeight());
     }

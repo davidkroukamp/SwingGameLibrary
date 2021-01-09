@@ -5,8 +5,7 @@
  */
 package za.co.swinggamelibrary;
 
-import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,61 +13,30 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class Animation {
 
-    private final AnimationFrame animation;
-    private int currIndex;
-    private int loops = 1;
-    private long animationTime;
-    private final AtomicBoolean done;
+    private final ArrayList<SpriteFrame> spriteFrames;
+    private final long delayPerFrame;
+    private final int loops;
 
-    public Animation(AnimationFrame animation) {
-        currIndex = 0;
-        animationTime = 0;
-        done = new AtomicBoolean(false);
-        this.animation = animation;
+    public static Animation createWithSpriteFrames(ArrayList<SpriteFrame> spriteFrames, long delayPerFrame, int loops) {
+        return new Animation(spriteFrames, delayPerFrame, loops);
+    }
+    
+    private Animation(ArrayList<SpriteFrame> spriteFrames, long delayPerFrame, int loops) {
+        this.spriteFrames = spriteFrames;
+        this.delayPerFrame = delayPerFrame;
+        this.loops = loops;
     }
 
-    public boolean isDone() {
-        return done.get();
+    public long getDelayPerFrame() {
+        return delayPerFrame;
     }
 
-    public void reset() {
-        animationTime = 0;
-        currIndex = 0;
-        done.getAndSet(false);
+    public ArrayList<SpriteFrame> getSpriteFrames() {
+        return spriteFrames;
     }
 
-    public void update(long elapsedTime) {
-        if (done.get()) {
-            return;
-        }
-
-        if (this.animation.getSpriteFrames().size() > 1) {
-            animationTime += elapsedTime;
-            // TODO add loops check
-            if (animationTime >= this.animation.getDelayPerFrame()) { // animation time has elapsed and frame shoiuld be changed
-                if (currIndex + 1 >= this.animation.getSpriteFrames().size()) { // we reached the end of the animation
-                    animationTime = 0;
-                    currIndex = 0;
-                    if (loops < animation.getLoops()) {
-                        loops++;
-                    } else {
-                        if (animation.getLoops() > 0) {
-                            done.getAndSet(true);
-                        }
-                    }
-                } else {
-                    animationTime = 0;
-                    currIndex++;
-                }
-            }
-        }
+    public int getLoops() {
+        return loops;
     }
 
-    public BufferedImage getCurrentImage() {
-        if (this.animation.getSpriteFrames().isEmpty()) {
-            return null;
-        } else {
-            return this.animation.getSpriteFrames().get(currIndex).getImage();
-        }
-    }
 }
