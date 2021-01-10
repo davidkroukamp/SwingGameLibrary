@@ -29,6 +29,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Add Spritesheet support for `SpriteFrameCache`
 - [ ] Implement some type of ActionManager/Actionable class on Node which Sprite will use to switch out animations on the fly.
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
+- [ ] Add `MouseListener` ability to `Node`s, as well as allowing parallel KeyBindings (perhaps a bug)
 - [ ] `Scene` should only render visible sprites in the screen/camera view
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
