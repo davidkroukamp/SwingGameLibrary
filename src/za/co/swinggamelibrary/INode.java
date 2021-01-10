@@ -69,4 +69,10 @@ public interface INode {
     void setZOrder(int zOrder);
     
     int getZOrder();
+    
+    void onEnter();
+    
+    void onExit();
+    
+    boolean hasRendered();
 }

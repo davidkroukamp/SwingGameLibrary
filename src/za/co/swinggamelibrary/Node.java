@@ -26,6 +26,7 @@ public class Node implements INode {
     private final Rectangle2D.Double rectangle;
     private final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
     private int zOrder = 0;
+    private boolean hasRendered;
 
     public Node() {
         visible = true;
@@ -44,11 +45,9 @@ public class Node implements INode {
 
     @Override
     public void update(long elapsedTime) {
-        synchronized (nodes) {
-            getNodes().stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
-                node.update(elapsedTime);
-            });
-        }
+        getNodes().stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
+            node.update(elapsedTime);
+        });
     }
 
     @Override
@@ -59,13 +58,18 @@ public class Node implements INode {
             INode node = (INode) spriteIterator.next();
             // draw the object to JPanel
             if (node.isRemovedFromParent()) {
+                node.onExit();
                 remove(node);
             } else {
                 if (node.isVisible()) {
+                    if (!node.hasRendered()) {
+                        node.onEnter();
+                    }
                     node.render(g2d);
                 }
             }
         }
+        hasRendered = true;
     }
 
     @Override
@@ -78,7 +82,7 @@ public class Node implements INode {
 
             node.setParent(this);
             nodes.add(node);
-            
+
             // sort nodes by z order
             List<INode> unsortedNodes = new ArrayList<>(nodes);
             nodes.clear();
@@ -246,5 +250,18 @@ public class Node implements INode {
     @Override
     public int getZOrder() {
         return zOrder;
+    }
+
+    @Override
+    public void onEnter() {
+    }
+
+    @Override
+    public void onExit() {
+    }
+
+    @Override
+    public boolean hasRendered() {
+        return hasRendered;
     }
 }
