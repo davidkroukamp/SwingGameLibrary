@@ -27,6 +27,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Remove any unnecessary synchronized blocks 
 - [ ] Rename all getters with *world* in to omit the world part for readability
 - [ ] Add Spritesheet support for `SpriteFrameCache`
+- [ ] Implement some type of ActionManager/Actionable class on Node which Sprite will use to switch out animations on the fly.
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] `Scene` should only render visible sprites in the screen/camera view
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
