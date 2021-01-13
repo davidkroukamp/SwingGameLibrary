@@ -25,9 +25,11 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Add z-order to `Node` as well as fix Node size counts
 - [x] `Node` should have `onEnter`/`onExit` callbacks for when a `Node` is made visible or removed from the scene/parent.
 - [x] Remove any unnecessary synchronized blocks 
-- [ ] Rename all getters with *world* in to omit the world part for readability
-- [ ] Add Spritesheet support for `SpriteFrameCache`
+- [x] Rename all getters with *world* in to omit the world part for readability
+- [x] Add Spritesheet support for `SpriteFrameCache`
+- [ ] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
 - [ ] Implement some type of ActionManager/Actionable class on Node which Sprite will use to switch out animations on the fly.
+- [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] Add `MouseListener` ability to `Node`s, as well as allowing parallel KeyBindings (perhaps a bug)
 - [ ] `Scene` should only render visible sprites in the screen/camera view
@@ -49,3 +51,4 @@ See [SwingGameLibrary-Samples
 
 **Special thanks to:**
 - [TinySound](https://github.com/finnkuusisto/TinySound) for the great library, which is the backbone of *SwingGameLibrary's* `AudioEngine`
+- [jcabi-xml](https://github.com/jcabi/jcabi-xml) for the XML library used to read *plist* file format
