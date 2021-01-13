@@ -51,3 +51,4 @@ See [SwingGameLibrary-Samples
 
 **Special thanks to:**
 - [TinySound](https://github.com/finnkuusisto/TinySound) for the great library, which is the backbone of *SwingGameLibrary's* `AudioEngine`
+- [jcabi-xml](https://github.com/jcabi/jcabi-xml) for the XML library used to read *plist* file format
