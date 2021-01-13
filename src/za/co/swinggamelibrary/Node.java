@@ -255,4 +255,10 @@ public class Node implements INode {
     public void onExit() {
     }
 
+    @Override
+    public void setPosition(int x, int y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
 }

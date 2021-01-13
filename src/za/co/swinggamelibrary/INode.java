@@ -71,4 +71,6 @@ public interface INode {
     void onExit();
     
     boolean hasRendered();
+    
+    void setPosition(int x , int y);
 }

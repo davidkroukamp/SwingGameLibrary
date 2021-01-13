@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.collections4.MultiValuedMap;
@@ -42,6 +43,16 @@ public class SpriteFrameCache {
         return single_instance;
     }
 
+    public void addSpriteFrameWithKey(String key, SpriteFrame spriteFrame) {
+        if (this.sprites.get(key).isEmpty()) {
+            LinkedList<SpriteFrame> spriteFrames = new LinkedList<>();
+            spriteFrames.add(spriteFrame);
+            this.sprites.put(key, spriteFrames);
+        } else {
+            //this.sprites.put(key, spriteFrames);
+        }
+    }
+
     public void addSpriteFramesWithKey(String key, LinkedList<SpriteFrame> spriteFrames) {
         this.sprites.put(key, spriteFrames);
     }
@@ -54,7 +65,7 @@ public class SpriteFrameCache {
         List<XML> keys = xml.nodes("/plist/dict/dict/key");
         List<XML> dicts = xml.nodes("/plist/dict/dict/dict");
         LinkedList<SpriteFrame> spriteFrames = new LinkedList<>();
-        
+
         for (int i = 0; i < dicts.size(); i++) {
             String textureRect = "";
             List<XML> dictForKeyNodes = dicts.get(i).nodes("*");
@@ -104,8 +115,10 @@ public class SpriteFrameCache {
 
     public SpriteFrame getSpriteFrameByName(String name) {
         for (Map.Entry pair : this.sprites.entries()) {
-            if (((SpriteFrame) pair.getValue()).getName().equals(name)) {
-                return (SpriteFrame) pair.getValue();
+            LinkedList<SpriteFrame> spriteFrames = (LinkedList<SpriteFrame>) pair.getValue();
+            Optional<SpriteFrame> foundSpriteFrame = spriteFrames.stream().filter((sp) -> sp.getName().equals(name)).findFirst();
+            if (foundSpriteFrame.isPresent()) {
+                return foundSpriteFrame.get();
             }
         }
 
