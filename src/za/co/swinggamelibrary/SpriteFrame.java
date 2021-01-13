@@ -16,7 +16,6 @@ public class SpriteFrame {
     private final String name;
     private final BufferedImage image;
 
-    // TODO this will be changed or another constructor added to accept the file or path to the file?
     public SpriteFrame(String name, BufferedImage image) {
         this.name = name;
         this.image = image;

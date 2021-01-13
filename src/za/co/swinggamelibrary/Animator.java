@@ -15,60 +15,66 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Animator {
 
     private final Animation animation;
-    private int currIndex;
-    private int loops = 1;
-    private long animationTime;
-    private final AtomicBoolean done;
+    private int frameIndex;
+    private int loopCount = 1;
+    private long animationElapsedTime;
+    private final AtomicBoolean stopped;
 
     public Animator(Animation animation) {
-        currIndex = 0;
-        animationTime = 0;
-        done = new AtomicBoolean(false);
+        this.frameIndex = 0;
+        this.animationElapsedTime = 0;
         this.animation = animation;
+        this.stopped = new AtomicBoolean(true);
     }
 
-    public boolean isDone() {
-        return done.get();
+    public void start() {
+        this.stopped.set(false);
+    }
+
+    public void stop() {
+        this.stopped.set(true);
     }
 
     public void reset() {
-        animationTime = 0;
-        currIndex = 0;
-        done.getAndSet(false);
+        this.animationElapsedTime = 0;
+        this.frameIndex = 0;
+        this.stopped.set(true);
     }
 
     public void update(long elapsedTime) {
-        if (done.get()) {
+        if (this.stopped.get()) {
             return;
         }
 
-        if (this.animation.getSpriteFrames().size() > 1) {
-            animationTime += elapsedTime;
-            // TODO add loops check
-            if (animationTime >= this.animation.getDelayPerFrame()) { // animation time has elapsed and frame shoiuld be changed
-                if (currIndex + 1 >= this.animation.getSpriteFrames().size()) { // we reached the end of the animation
-                    animationTime = 0;
-                    currIndex = 0;
-                    if (loops < animation.getLoops()) {
-                        loops++;
+        int frameCount = this.animation.getFrames().size();
+        int animationLoops = this.animation.getLoops();
+
+        if (frameCount > 1) {
+            this.animationElapsedTime += elapsedTime;
+            if (this.animationElapsedTime >= this.animation.getDelayPerUnit() * 1000) {
+                // we reached the end of the animation
+                if (this.frameIndex + 1 >= frameCount) {
+                    this.animationElapsedTime = 0;
+                    this.frameIndex = 0;
+                    // check if we need to loop the animation 
+                    if (this.loopCount < animationLoops) {
+                        this.loopCount++;
                     } else {
-                        if (animation.getLoops() > 0) {
-                            done.getAndSet(true);
+                         // only stop the animation if it had a loop count greater then 0 as 0 means indefinitely
+                        if (animationLoops > 0) {
+                            this.stopped.set(true);
                         }
                     }
                 } else {
-                    animationTime = 0;
-                    currIndex++;
+                    this.animationElapsedTime = 0;
+                    this.frameIndex++;
                 }
             }
         }
     }
 
     public BufferedImage getCurrentImage() {
-        if (this.animation.getSpriteFrames().isEmpty()) {
-            return null;
-        } else {
-            return this.animation.getSpriteFrames().get(currIndex).getImage();
-        }
+        return this.animation.getFrames().get(frameIndex).getImage();
     }
+
 }

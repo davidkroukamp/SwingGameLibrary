@@ -29,23 +29,23 @@ public class Node implements INode {
     private boolean hasRendered;
 
     public Node() {
-        visible = true;
-        rectangle = new Rectangle2D.Double(0, 0, 0, 0);
+        this.visible = true;
+        this.rectangle = new Rectangle2D.Double(0, 0, 0, 0);
     }
 
     public Node(int width, int height) {
-        visible = true;
-        rectangle = new Rectangle2D.Double(0, 0, width, height);
+        this.visible = true;
+        this.rectangle = new Rectangle2D.Double(0, 0, width, height);
     }
 
     public Node(int worldX, int worldY, int width, int height) {
-        visible = true;
-        rectangle = new Rectangle2D.Double(worldX, worldY, width, height);
+        this.visible = true;
+        this.rectangle = new Rectangle2D.Double(worldX, worldY, width, height);
     }
 
     @Override
     public void update(long elapsedTime) {
-        getNodes().stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
+        this.getNodes().stream().filter((node) -> (node.isVisible())).forEachOrdered((node) -> {
             node.update(elapsedTime);
         });
     }
@@ -53,7 +53,7 @@ public class Node implements INode {
     @Override
     public void render(Graphics2D g2d) {
         // draw all Sprites to the screen which are visible and or havent been removed from the scene
-        Iterator<INode> spriteIterator = getNodes().iterator();
+        Iterator<INode> spriteIterator = this.getNodes().iterator();
         while (spriteIterator.hasNext()) {
             INode node = (INode) spriteIterator.next();
             // draw the object to JPanel
@@ -69,31 +69,31 @@ public class Node implements INode {
                 }
             }
         }
-        hasRendered = true;
+        this.hasRendered = true;
     }
 
     @Override
     public void add(INode node) {
-        synchronized (nodes) {
+        synchronized (this.nodes) {
             // TODO perhaps throw an exception
             if (node.getParent() != null) {
                 return;
             }
 
             node.setParent(this);
-            nodes.add(node);
+            this.nodes.add(node);
 
             // sort nodes by z order
-            List<INode> unsortedNodes = new ArrayList<>(nodes);
-            nodes.clear();
-            nodes.addAll(unsortedNodes.stream().sorted(Comparator.comparingInt(n -> n.getZOrder())).collect(Collectors.toList()));
+            List<INode> unsortedNodes = new ArrayList<>(this.nodes);
+            this.nodes.clear();
+            this.nodes.addAll(unsortedNodes.stream().sorted(Comparator.comparingInt(n -> n.getZOrder())).collect(Collectors.toList()));
         }
     }
 
     @Override
     public void remove(INode node) {
-        synchronized (nodes) {
-            Iterator<INode> nodeIterator = nodes.iterator();
+        synchronized (this.nodes) {
+            Iterator<INode> nodeIterator = this.nodes.iterator();
             while (nodeIterator.hasNext()) {
                 if (nodeIterator.next().equals(node)) {
                     node.setParent(null);
@@ -106,8 +106,8 @@ public class Node implements INode {
 
     @Override
     public void removeAll() {
-        synchronized (nodes) {
-            Iterator<INode> nodeIterator = nodes.iterator();
+        synchronized (this.nodes) {
+            Iterator<INode> nodeIterator = this.nodes.iterator();
             while (nodeIterator.hasNext()) {
                 INode node = nodeIterator.next();
                 node.setParent(null);
@@ -119,14 +119,14 @@ public class Node implements INode {
 
     @Override
     public List<INode> getNodes() {
-        synchronized (nodes) {
-            return new ArrayList<>(nodes);
+        synchronized (this.nodes) {
+            return new ArrayList<>(this.nodes);
         }
     }
 
     @Override
     public boolean isVisible() {
-        return visible;
+        return this.visible;
     }
 
     @Override
@@ -136,18 +136,18 @@ public class Node implements INode {
 
     @Override
     public void removeFromParent() {
-        removedFromParent = true;
-        visible = false;
+        this.removedFromParent = true;
+        this.visible = false;
     }
 
     @Override
     public boolean isRemovedFromParent() {
-        return removedFromParent;
+        return this.removedFromParent;
     }
 
     @Override
     public INode getParent() {
-        return parent;
+        return this.parent;
     }
 
     @Override
@@ -156,84 +156,74 @@ public class Node implements INode {
     }
 
     @Override
-    public void setWorldX(int x) {
-        rectangle.x = x;
+    public void setX(int x) {
+        this.rectangle.x = x;
     }
 
     @Override
-    public void setWorldY(int y) {
-        rectangle.y = y;
+    public void setY(int y) {
+        this.rectangle.y = y;
     }
 
     @Override
-    public int getWorldX() {
-        return getParent() != null ? getParent().getWorldX() + (int) rectangle.x : (int) rectangle.x;
+    public int getX() {
+        return this.getParent() != null ? this.getParent().getX() + (int) this.rectangle.x : (int) this.rectangle.x;
     }
 
     @Override
-    public int getWorldY() {
-        return getParent() != null ? getParent().getWorldY() + (int) rectangle.y : (int) rectangle.y;
+    public int getY() {
+        return this.getParent() != null ? this.getParent().getY() + (int) this.rectangle.y : (int) this.rectangle.y;
     }
 
     @Override
     public int getScreenX() {
-        return (int) (ImageScaler.getInstance().getWidthScaleFactor() * getWorldX());
+        return (int) (ImageScaler.getInstance().getWidthScaleFactor() * getX());
     }
 
     @Override
     public int getScreenY() {
-        return (int) (ImageScaler.getInstance().getHeightScaleFactor() * getWorldY());
-    }
-
-    @Override
-    public void setScreenX(int x) {
-        rectangle.x = x / ImageScaler.getInstance().getWidthScaleFactor();
-    }
-
-    @Override
-    public void setScreenY(int y) {
-        rectangle.y = y / ImageScaler.getInstance().getHeightScaleFactor();
+        return (int) (ImageScaler.getInstance().getHeightScaleFactor() * getY());
     }
 
     @Override
     public void setWidth(int width) {
-        rectangle.width = width;
+        this.rectangle.width = width;
     }
 
     @Override
     public void setHeight(int height) {
-        rectangle.height = height;
+        this.rectangle.height = height;
     }
 
     @Override
     public double getWidth() {
-        return rectangle.width;
+        return this.rectangle.width;
     }
 
     @Override
     public double getHeight() {
-        return rectangle.height;
+        return this.rectangle.height;
     }
 
     @Override
     public boolean intersects(INode node) {
-        if ((getWidth() <= 0.0 || getHeight() <= 0.0) || node.getWidth() <= 0 || node.getHeight() <= 0) {
+        if ((this.getWidth() <= 0.0 || this.getHeight() <= 0.0) || node.getWidth() <= 0 || node.getHeight() <= 0) {
             return false;
         }
         double x = node.getScreenX();
         double y = node.getScreenY();
-        double x0 = getScreenX();
-        double y0 = getScreenY();
+        double x0 = this.getScreenX();
+        double y0 = this.getScreenY();
         return (x + node.getWidth() > x0
                 && y + node.getHeight() > y0
-                && x < x0 + getWidth()
-                && y < y0 + getHeight());
+                && x < x0 + this.getWidth()
+                && y < y0 + this.getHeight());
     }
 
     @Override
     public int getChildCount() {
-        int childCount = nodes.size();
-        Iterator<INode> nodeIterator = nodes.iterator();
+        int childCount = this.nodes.size();
+        Iterator<INode> nodeIterator = this.nodes.iterator();
         while (nodeIterator.hasNext()) {
             INode node = nodeIterator.next();
             childCount += node.getChildCount();
@@ -249,7 +239,12 @@ public class Node implements INode {
 
     @Override
     public int getZOrder() {
-        return zOrder;
+        return this.zOrder;
+    }
+
+    @Override
+    public boolean hasRendered() {
+        return this.hasRendered;
     }
 
     @Override
@@ -260,8 +255,4 @@ public class Node implements INode {
     public void onExit() {
     }
 
-    @Override
-    public boolean hasRendered() {
-        return hasRendered;
-    }
 }

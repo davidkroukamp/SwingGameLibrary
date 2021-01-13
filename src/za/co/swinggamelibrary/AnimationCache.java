@@ -17,7 +17,7 @@ public class AnimationCache {
     private final HashMap<String, Animation> animationCache;
 
     private AnimationCache() {
-        animationCache = new HashMap<>();
+        this.animationCache = new HashMap<>();
     }
 
     public static AnimationCache getInstance() {
@@ -29,15 +29,15 @@ public class AnimationCache {
     }
 
     public void addAnimation(String name, Animation animation) {
-        animationCache.put(name, animation);
+        this.animationCache.put(name, animation);
     }
 
     public void removeAnimation(String name) {
-        animationCache.remove(name);
+        this.animationCache.remove(name);
     }
 
     public Animation getAnimation(String name) {
-        return animationCache.get(name);
+        return this.animationCache.get(name);
     }
 
 }

@@ -5,11 +5,21 @@
  */
 package za.co.swinggamelibrary;
 
-import java.util.ArrayList;
+import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -18,10 +28,10 @@ import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 public class SpriteFrameCache {
 
     private static SpriteFrameCache single_instance = null;
-    private final MultiValuedMap<String, SpriteFrame> sprites;
+    private final MultiValuedMap<String, LinkedList<SpriteFrame>> sprites;
 
     private SpriteFrameCache() {
-        sprites = new HashSetValuedHashMap<>();
+        this.sprites = new HashSetValuedHashMap<>();
     }
 
     public static SpriteFrameCache getInstance() {
@@ -32,16 +42,44 @@ public class SpriteFrameCache {
         return single_instance;
     }
 
-    public void addSpriteFramesWithKey(String key, SpriteFrame spriteFrame) {
-        sprites.put(key, spriteFrame);
+    public void addSpriteFramesWithKey(String key, LinkedList<SpriteFrame> spriteFrames) {
+        this.sprites.put(key, spriteFrames);
+    }
+
+    // use Texturepacker or https://github.com/leafsax/SpriteSplitter/tree/master to gen plist for spritesheets
+    // this calls addSpriteFrameWithKey for each sprite in the sprite sheet, usong the plist file as the key
+    // otherwise simply use getSpriteFrameByName to get specific sprites off of the sheet usoing the names in the plist
+    public void addSpriteFramesWithFile(String key, File pListFile, BufferedImage spriteSheet) throws ParserConfigurationException, SAXException, IOException {
+        XML xml = new XMLDocument(pListFile);
+        List<XML> keys = xml.nodes("/plist/dict/dict/key");
+        List<XML> dicts = xml.nodes("/plist/dict/dict/dict");
+        LinkedList<SpriteFrame> spriteFrames = new LinkedList<>();
+        
+        for (int i = 0; i < dicts.size(); i++) {
+            String textureRect = "";
+            List<XML> dictForKeyNodes = dicts.get(i).nodes("*");
+            for (int x = 0; x < dictForKeyNodes.size(); x++) {
+                if (dictForKeyNodes.get(x).node().getTextContent().equals("textureRect")) {
+                    textureRect = dictForKeyNodes.get(x + 1).node().getTextContent();
+                    break;
+                }
+            }
+
+            textureRect = textureRect.replace("{", "").replace("}", "");
+            List<Integer> spriteRect = Arrays.stream(textureRect.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+            SpriteFrame spriteFrame = new SpriteFrame(keys.get(i).node().getTextContent(), spriteSheet.getSubimage(spriteRect.get(0), spriteRect.get(1), spriteRect.get(2), spriteRect.get(3)));
+            spriteFrames.add(spriteFrame);
+        }
+
+        this.addSpriteFramesWithKey(key, spriteFrames);
     }
 
     public void removeSpriteFrames() {
-        sprites.clear();
+        this.sprites.clear();
     }
 
     public void removeSpriteFrameByName(String name) {
-        Iterator spriteIterator = sprites.entries().iterator();
+        Iterator spriteIterator = this.sprites.entries().iterator();
         while (spriteIterator.hasNext()) {
             Map.Entry pair = (Map.Entry) spriteIterator.next();
             if (((SpriteFrame) pair.getValue()).getName().equals(name)) {
@@ -51,22 +89,21 @@ public class SpriteFrameCache {
     }
 
     public void removeSpriteFrameByKey(String key) {
-        sprites.remove(key);
+        this.sprites.remove(key);
     }
 
-    public ArrayList<SpriteFrame> getSpriteFramesByKey(String key) {
-        ArrayList<SpriteFrame> spriteFrames = new ArrayList<>();
-        for (Map.Entry pair : sprites.entries()) {
-            if (((String) pair.getKey()).equals(key)) {
-                spriteFrames.add((SpriteFrame) pair.getValue());
-            }
-        }
+    public LinkedList<SpriteFrame> getSpriteFramesByKey(String key) {
+        LinkedList spriteFrames = new LinkedList<>();
+
+        this.sprites.entries().stream().filter((pair) -> (((String) pair.getKey()).equals(key))).forEachOrdered((pair) -> {
+            spriteFrames.addAll(pair.getValue());
+        });
 
         return spriteFrames;
     }
 
     public SpriteFrame getSpriteFrameByName(String name) {
-        for (Map.Entry pair : sprites.entries()) {
+        for (Map.Entry pair : this.sprites.entries()) {
             if (((SpriteFrame) pair.getValue()).getName().equals(name)) {
                 return (SpriteFrame) pair.getValue();
             }

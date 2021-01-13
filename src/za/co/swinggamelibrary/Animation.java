@@ -5,7 +5,7 @@
  */
 package za.co.swinggamelibrary;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -13,30 +13,30 @@ import java.util.ArrayList;
  */
 public class Animation {
 
-    private final ArrayList<SpriteFrame> spriteFrames;
-    private final long delayPerFrame;
+    private final LinkedList<SpriteFrame> frames;
+    private final float delayPerUnit;
     private final int loops;
 
-    public static Animation createWithSpriteFrames(ArrayList<SpriteFrame> spriteFrames, long delayPerFrame, int loops) {
-        return new Animation(spriteFrames, delayPerFrame, loops);
+    public static Animation createWithSpriteFrames(LinkedList<SpriteFrame> frames, float delayPerUnit, int loops) {
+        return new Animation(frames, delayPerUnit, loops);
     }
-    
-    private Animation(ArrayList<SpriteFrame> spriteFrames, long delayPerFrame, int loops) {
-        this.spriteFrames = spriteFrames;
-        this.delayPerFrame = delayPerFrame;
+
+    private Animation(LinkedList<SpriteFrame> frames, float delayPerUnit, int loops) {
+        this.frames = frames;
+        this.delayPerUnit = delayPerUnit;
         this.loops = loops;
     }
 
-    public long getDelayPerFrame() {
-        return delayPerFrame;
+    public float getDelayPerUnit() {
+        return this.delayPerUnit;
     }
 
-    public ArrayList<SpriteFrame> getSpriteFrames() {
-        return spriteFrames;
+    public LinkedList<SpriteFrame> getFrames() {
+        return this.frames;
     }
 
     public int getLoops() {
-        return loops;
+        return this.loops;
     }
 
 }

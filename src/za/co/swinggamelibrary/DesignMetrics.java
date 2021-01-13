@@ -23,7 +23,7 @@ public class DesignMetrics {
     private final HashSet<String> searchPaths;
 
     private DesignMetrics() {
-        searchPaths = new HashSet<>();
+        this.searchPaths = new HashSet<>();
     }
 
     public static DesignMetrics initialise(Dimension designResolution, Dimension currentResolution) {
@@ -47,26 +47,26 @@ public class DesignMetrics {
     }
 
     public Dimension getDesignResolution() {
-        return designResolutionDimensions;
+        return this.designResolutionDimensions;
     }
 
     public Dimension getCurrentResolutionDimensions() {
-        return currentResolutionDimensions;
+        return this.currentResolutionDimensions;
     }
 
     public void setSdResolution(Dimension dimensions) {
-        sdResolutionDimensions = dimensions;
+        this.sdResolutionDimensions = dimensions;
     }
 
     public void setHdResolution(Dimension dimensions) {
-        hdResolutionDimensions = dimensions;
+        this.hdResolutionDimensions = dimensions;
     }
 
     public void setHdrResolution(Dimension dimensions) {
-        hdrResolutionDimensions = dimensions;
+        this.hdrResolutionDimensions = dimensions;
     }
 
     public void setSearchPath(String path) {
-        searchPaths.add(path);
+        this.searchPaths.add(path);
     }
 }

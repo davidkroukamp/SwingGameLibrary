@@ -23,12 +23,15 @@ public class Director extends JPanel {
     private boolean renderDebugInfo;
     private boolean drawDebugMasks;
 
-    public Director(int fps) {
+    public Director() {
         super(true);
+        
         // TODO check if design metrics are initialised throw exception if not
-        this.setIgnoreRepaint(true);//we will do the repainting
+        // we will do the repainting
+        this.setIgnoreRepaint(true);
         this.setBackground(Color.BLACK);
-        this.gameLoop = new GameLoop(fps, 0) {
+        
+        this.gameLoop = new GameLoop() {
             @Override
             public void update(long elapsedTime) { //updates Node/Sprite movement and or animation
                 Director.this.update(elapsedTime);
@@ -48,9 +51,9 @@ public class Director extends JPanel {
         Graphics2D g2d = (Graphics2D) graphics;
         Graphics2DHelper.applyRenderHints(g2d);
         
-        scene.render(g2d);
+        this.scene.render(g2d);
 
-        if (renderDebugInfo) {
+        if (this.renderDebugInfo) {
             FontMetrics metrics = g2d.getFontMetrics(getFont());
             g2d.setColor(Color.WHITE);
             int textX = (int) getHeight() - metrics.getHeight() + metrics.getAscent();
@@ -66,13 +69,13 @@ public class Director extends JPanel {
     }
 
     public void update(long elapsedTime) {
-        scene.update(elapsedTime);
+        this.scene.update(elapsedTime);
     }
 
     public void setScene(Scene scene) {
         this.scene = scene;
         this.scene.setDirector(this);
-        this.scene.setDrawDebugMasks(drawDebugMasks);
+        this.scene.setDrawDebugMasks(this.drawDebugMasks);
     }
 
     public void setRenderDebugInfo(boolean renderDebugInfo) {
@@ -81,32 +84,33 @@ public class Director extends JPanel {
 
     public void setDrawDebugMasks(boolean drawDebugMasks) {
         this.drawDebugMasks = drawDebugMasks;
-        if (scene != null) {
-            scene.setDrawDebugMasks(drawDebugMasks);
+        if (this.scene != null) {
+            this.scene.setDrawDebugMasks(drawDebugMasks);
         }
     }
 
     public void start() {
-        gameLoop.start();
+        this.gameLoop.start();
     }
 
     public void pause() {
-        gameLoop.pause();
+        this.gameLoop.pause();
     }
 
     public void resume() {
-        gameLoop.resume();
+        this.gameLoop.resume();
     }
 
     public void stop() {
-        gameLoop.stop();
+        this.gameLoop.stop();
     }
 
     public boolean isPaused() {
-        return gameLoop.isPaused();
+        return this.gameLoop.isPaused();
     }
 
     public boolean isRunning() {
-        return gameLoop.isRunning();
+        return this.gameLoop.isRunning();
     }
+    
 }

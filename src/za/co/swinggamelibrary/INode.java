@@ -14,17 +14,13 @@ import java.util.List;
  */
 public interface INode {
 
-    public void setWorldX(int x);
+    public void setX(int x);
 
-    public void setWorldY(int y);
+    public void setY(int y);
 
-    public int getWorldX();
+    public int getX();
 
-    public int getWorldY();
-
-    public void setScreenX(int x);
-
-    public void setScreenY(int y);
+    public int getY();
 
     public int getScreenX();
 
