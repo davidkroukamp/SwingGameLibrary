@@ -27,9 +27,9 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Remove any unnecessary synchronized blocks 
 - [x] Rename all getters with *world* in to omit the world part for readability
 - [x] Add Spritesheet support for `SpriteFrameCache`
-- [ ] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
+- [x] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
 - [ ] Implement some type of ActionManager/Actionable class on Node which Sprite will use to switch out animations on the fly.
-- [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites
+- [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] Add `MouseListener` ability to `Node`s, as well as allowing parallel KeyBindings (perhaps a bug)
 - [ ] `Scene` should only render visible sprites in the screen/camera view
