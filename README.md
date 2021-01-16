@@ -32,6 +32,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] Add `MouseListener` ability to `Node`s, as well as allowing parallel KeyBindings (perhaps a bug)
+- [ ] Add Tileset/Tilemap support 
 - [ ] `Scene` should only render visible sprites in the screen/camera view
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
