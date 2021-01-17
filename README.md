@@ -34,7 +34,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Add *Tileset*/*Tilemap* support, which is used in its own sample (sample-2)
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] `Scene` should only render visible sprites in the screen/camera view
-- [ ] Allow `Director` to use *variable* or *fixed* step game loop. In fixed step elapsedTime will simply be <=0
+- [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
