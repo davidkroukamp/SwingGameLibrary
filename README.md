@@ -29,7 +29,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Add Spritesheet support for `SpriteFrameCache`
 - [x] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
 - [ ] Implement `setFlippedY` on `Sprite`
-- [ ] Allow `Node` background to be set with a `SpriteFrame` similar to `Sprite`
+- [ ] Allow `Scene` background to be set with a `SpriteFrame` similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
 - [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
 - [ ] Implement some type of `ActionManager`/`Actionable` class on `Node` which `Sprite` will use to switch out animations on the fly. Animate and MoveTo.
