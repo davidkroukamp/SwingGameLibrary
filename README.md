@@ -30,6 +30,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
 - [ ] Implement some type of `ActionManager`/`Actionable` class on `Node` which `Sprite` will use to switch out animations on the fly. Animate and MoveTo.
 - [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
+- [ ] Allow `Node` background to be set with a `SpriteFrame` similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
 - [ ] Add *Tileset*/*Tilemap* support, which is used in its own sample (sample-2)
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
