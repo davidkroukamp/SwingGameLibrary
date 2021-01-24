@@ -30,7 +30,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
 - [ ] Implement `setRestrictMovementToParent(boolean enable, long flags)`, `setRestrictMovementToNode(INode node, long flags)` and `onMovementRestricted()` for `Sprite`, defaults to no restriction.
 - [ ] Implement `setFlippedY` on `Sprite`
-- [ ] Allow `Scene` background to be set with a `SpriteFrame` similar to `Sprite`
+- [ ] Allow `Scene` background to be set with a `SpriteFrame` and SpriteFrame name similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
 - [ ] Immplement `setScale` for `Node`
 - [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
