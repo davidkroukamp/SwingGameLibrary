@@ -32,6 +32,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Implement `setFlippedY` on `Sprite`
 - [ ] Allow `Scene` background to be set with a `SpriteFrame` similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
+- [ ] Immplement `setScale` for `Node`
 - [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
 - [ ] Implement some type of `ActionManager`/`Actionable` class on `Node` which `Sprite` will use to switch out animations on the fly. Animate, MoveTo, Follow etc.
 - [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
