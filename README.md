@@ -28,7 +28,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Rename all getters with *world* in to omit the world part for readability
 - [x] Add Spritesheet support for `SpriteFrameCache`
 - [x] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
-- [ ] Implement `setRestrictMovementToParent(boolean enable)`, `setRestrictMovementToNode(INode node)` and `onMovementRestricted()` for `Sprite`, defaults to no restriction.
+- [ ] Implement `setRestrictMovementToParent(boolean enable, long flags)`, `setRestrictMovementToNode(INode node)` and `onMovementRestricted()` for `Sprite`, defaults to no restriction.
 - [ ] Implement `setFlippedY` on `Sprite`
 - [ ] Allow `Scene` background to be set with a `SpriteFrame` similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
