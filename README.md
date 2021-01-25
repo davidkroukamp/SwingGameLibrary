@@ -33,13 +33,13 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Implement `setScale` for `Node`
 - [ ] Allow `Scene` background to be set with a `SpriteFrame` and SpriteFrame name similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
+- [ ] Add `Camera` which can be used for side scrolling/infinite background game types
+- [ ] `Scene` should only render visible sprites in the camera view
+- [ ] Implement assets search paths (SD,HD,HDR)
 - [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
 - [ ] Implement some type of `ActionManager`/`Actionable` class on `Node` which `Sprite` will use to switch out animations on the fly. Animate, MoveTo, Follow etc.
 - [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
 - [ ] Add *Tileset*/*Tilemap* support, which is used in its own sample (sample-2)
-- [ ] Add `Camera` which can be used for side scrolling/infinite background game types
-- [ ] `Scene` should only render visible sprites in the camera view
-- [ ] Implement assets search paths (SD,HD,HDR)
 - [ ] Add physics capabilities using [dyn4j](https://github.com/dyn4j/dyn4j)
 - [ ] Document classes and methods
 
