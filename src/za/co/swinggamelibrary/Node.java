@@ -27,6 +27,7 @@ public class Node implements INode {
     private final List<INode> nodes = Collections.synchronizedList(new ArrayList<>());
     private int zOrder = 0;
     private boolean hasRendered;
+    private float scale = 1.0f;
 
     public Node() {
         this.visible = true;
@@ -197,12 +198,12 @@ public class Node implements INode {
 
     @Override
     public double getWidth() {
-        return this.rectangle.width;
+        return this.rectangle.width * getScale();
     }
 
     @Override
     public double getHeight() {
-        return this.rectangle.height;
+        return this.rectangle.height * getScale();
     }
 
     @Override
@@ -259,6 +260,16 @@ public class Node implements INode {
     public void setPosition(int x, int y) {
         this.setX(x);
         this.setY(y);
+    }
+
+    @Override
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    @Override
+    public float getScale() {
+        return scale;
     }
 
 }

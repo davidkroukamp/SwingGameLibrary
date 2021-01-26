@@ -73,4 +73,8 @@ public interface INode {
     boolean hasRendered();
     
     void setPosition(int x , int y);
+    
+    void setScale(float scale);
+    
+    float getScale();
 }

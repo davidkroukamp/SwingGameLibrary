@@ -73,7 +73,7 @@ public class Sprite extends Node {
             x = x + width;
             width = -width;
         }
-        
+
         if (isFlippedY) {
             y = y + height;
             height = -height;
