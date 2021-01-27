@@ -38,7 +38,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] `Scene` should only render visible sprites in the camera view
 - [ ] Implement assets search paths (SD,HD,HDR)
-- [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
+- [ ] Allow `Director` to use *variable* or *fixed* time step game loop, as well as control FPS to 30 or 60. In *fixed* step `elapsedTime` will become 0 and interpolation in Node render will be >= 0 and vice versa.
 - [ ] Implement some type of `ActionManager`/`Actionable` class on `Node` which `Sprite` will use to switch out animations on the fly. Animate, MoveTo, Follow etc.
 - [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
 - [ ] Add *Tileset*/*Tilemap* support, which is used in its own sample (sample-2)
