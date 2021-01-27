@@ -30,14 +30,16 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [x] Allow `Sprite` to be created with a single `SpriteFrame` as opposed to animation
 - [x] Implement `setRestrictMovementToParent(boolean enable, long flags)`, `setRestrictMovementToNode(INode node, long flags)` and `onMovementRestricted()` for `Sprite`, defaults to no restriction.
 - [x] Implement `setFlippedY` on `Sprite`
-- [ ] Implement `setScale` for `Node`
+- [x] Implement `setScale` for `Node`
+- [ ] Implement `setScaleX` and `setScaleY`
 - [ ] Allow `Scene` background to be set with a `SpriteFrame` and SpriteFrame name similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
 - [ ] Add `onCollisionStart` and `onCollisionEnd` methods `ICollidable`
+- [ ] Investigate adding only necessary apache commons libraries
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] `Scene` should only render visible sprites in the camera view
 - [ ] Implement assets search paths (SD,HD,HDR)
-- [ ] Allow `Director` to use *variable* or *fixed* step game loop. In *fixed* step `elapsedTime` will simply be <=0
+- [ ] Allow `Director` to use *variable* or *fixed* time step game loop, as well as control FPS to 30 or 60. In *fixed* step `elapsedTime` will become 0 and interpolation in Node render will be >= 0 and vice versa.
 - [ ] Implement some type of `ActionManager`/`Actionable` class on `Node` which `Sprite` will use to switch out animations on the fly. Animate, MoveTo, Follow etc.
 - [ ] Allow more support of *plist* and TexturePacker formats like cropping and trimming of sprites, and rotated sprites as well as multi packed sheets
 - [ ] Add *Tileset*/*Tilemap* support, which is used in its own sample (sample-2)
