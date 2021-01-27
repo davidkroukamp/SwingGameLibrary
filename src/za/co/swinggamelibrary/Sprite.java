@@ -80,9 +80,7 @@ public class Sprite extends Node {
         }
 
         g2d.drawImage(this.animator.getCurrentImage(), x, y, width, height, null);
-
-        // flip it vertically i.e. isFlippedY
-        // g2.drawImage(image, x, y + height, width, -height, null);
+        
         super.render(g2d);
     }
 

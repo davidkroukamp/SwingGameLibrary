@@ -25,12 +25,10 @@ public class Director extends JPanel {
 
     public Director() {
         super(true);
-        
+
         // TODO check if design metrics are initialised throw exception if not
-        // we will do the repainting
-        this.setIgnoreRepaint(true);
         this.setBackground(Color.BLACK);
-        
+
         this.gameLoop = new GameLoop() {
             @Override
             public void update(long elapsedTime) { //updates Node/Sprite movement and or animation
@@ -47,10 +45,10 @@ public class Director extends JPanel {
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        
+
         Graphics2D g2d = (Graphics2D) graphics;
         Graphics2DHelper.applyRenderHints(g2d);
-        
+
         this.scene.render(g2d);
 
         if (this.renderDebugInfo) {
@@ -66,6 +64,12 @@ public class Director extends JPanel {
     public Dimension getPreferredSize() {
         Dimension currentDimensions = DesignMetrics.getInstance().getCurrentResolutionDimensions();
         return new Dimension(currentDimensions.width, currentDimensions.height);
+    }
+
+    @Override
+    public boolean getIgnoreRepaint() {
+        // we will do the repainting swing can take a break 
+        return true;
     }
 
     public void update(long elapsedTime) {
@@ -112,5 +116,5 @@ public class Director extends JPanel {
     public boolean isRunning() {
         return this.gameLoop.isRunning();
     }
-    
+
 }
