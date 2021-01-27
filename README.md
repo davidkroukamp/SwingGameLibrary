@@ -35,6 +35,7 @@ The projects nomenclature might seem familiar if you have ever used [cocos2dx](h
 - [ ] Allow `Scene` background to be set with a `SpriteFrame` and SpriteFrame name similar to `Sprite`
 - [ ] Add `MouseListener` ability to `Node`s using `Shape`/`Ellipses2D`
 - [ ] Add `onCollisionStart` and `onCollisionEnd` methods `ICollidable`
+- [ ] Investigate adding only necessary apache commons libraries
 - [ ] Add `Camera` which can be used for side scrolling/infinite background game types
 - [ ] `Scene` should only render visible sprites in the camera view
 - [ ] Implement assets search paths (SD,HD,HDR)
